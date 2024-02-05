@@ -1,0 +1,16 @@
+{
+  "name": "react-components",
+  "version": "1.0.0",
+  "description": "custom react components",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@mui/material": "^5.15.7",
+    "react": "^18.2.0"
+  }
+}
