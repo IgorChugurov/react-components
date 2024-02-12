@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import React from "react";
 
-const SqureButton = (props) => {
+const SqureButton = (props: any) => {
   const { children, sx, ...other } = props;
 
   return (

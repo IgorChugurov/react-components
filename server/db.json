@@ -1,0 +1,122 @@
+{
+  "records": [
+    {
+      "_id": "1006",
+      "name": "json-server",
+      "tags": [
+        {
+          "id": "a436",
+          "fileRecordId": "1006",
+          "name": "ddd11",
+          "color": "rgb(219, 237, 219)",
+          "_id": "a436"
+        },
+        {
+          "_id": "f4eb",
+          "name": "tag4",
+          "color": "rgb(238, 224, 218)",
+          "createdAt": "2023-12-05T12:13:45.796Z",
+          "updatedAt": "2023-12-05T12:13:45.796Z",
+          "id": "f4eb"
+        },
+        {
+          "_id": "17b7",
+          "name": "New tag3",
+          "color": "rgb(232, 222, 238)",
+          "createdAt": "2023-12-05T15:10:31.576Z",
+          "updatedAt": "2023-12-05T15:10:31.576Z",
+          "id": "17b7"
+        },
+        {
+          "_id": "96af",
+          "name": "test query",
+          "color": "rgb(211, 229, 239)",
+          "createdAt": "2023-12-05T15:14:31.263Z",
+          "updatedAt": "2023-12-05T15:14:31.263Z",
+          "id": "96af"
+        }
+      ],
+      "id": "1006"
+    }
+  ],
+  "tags": [
+    {
+      "_id": "b026",
+      "name": "ddd",
+      "color": "rgb(227, 226, 224)",
+      "createdAt": "2024-01-22T15:23:50.095Z",
+      "updatedAt": "2024-01-22T15:23:50.095Z",
+      "id": "b026"
+    },
+    {
+      "_id": "8e23",
+      "name": "test",
+      "color": "rgb(232, 222, 238)",
+      "createdAt": "2024-01-22T10:22:50.945Z",
+      "updatedAt": "2024-01-22T10:22:50.945Z",
+      "id": "8e23"
+    },
+    {
+      "_id": "96af",
+      "name": "test222",
+      "color": "rgb(227, 226, 224)",
+      "id": "96af"
+    },
+    {
+      "_id": "17b7",
+      "name": "New tag3",
+      "color": "rgb(232, 222, 238)",
+      "createdAt": "2023-12-05T15:10:31.576Z",
+      "updatedAt": "2023-12-05T15:10:31.576Z",
+      "id": "17b7"
+    },
+    {
+      "_id": "0f7d",
+      "name": "new",
+      "color": "rgb(219, 237, 219)",
+      "createdAt": "2023-12-05T12:26:12.024Z",
+      "updatedAt": "2023-12-05T12:26:12.024Z",
+      "id": "0f7d"
+    },
+    {
+      "_id": "f4eb",
+      "name": "tag4",
+      "color": "rgb(238, 224, 218)",
+      "createdAt": "2023-12-05T12:13:45.796Z",
+      "updatedAt": "2023-12-05T12:13:45.796Z",
+      "id": "f4eb"
+    },
+    {
+      "_id": "4493",
+      "name": "tag2",
+      "color": "rgb(238, 224, 218)",
+      "createdAt": "2023-12-05T12:03:37.422Z",
+      "updatedAt": "2023-12-05T12:03:37.422Z",
+      "id": "4493"
+    },
+    {
+      "_id": "e90a",
+      "name": "tag3",
+      "color": "rgb(211, 229, 239)",
+      "createdAt": "2023-12-05T11:59:35.177Z",
+      "updatedAt": "2023-12-05T11:59:35.177Z",
+      "id": "e90a"
+    },
+    {
+      "_id": "0f3c",
+      "color": "rgb(211, 229, 239)",
+      "id": "0f3c",
+      "name": "kkddd"
+    },
+    {
+      "id": "a436",
+      "fileRecordId": "1006",
+      "name": "ddd11",
+      "color": "rgb(219, 237, 219)",
+      "_id": "a436"
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
