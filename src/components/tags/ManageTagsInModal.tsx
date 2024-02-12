@@ -208,30 +208,17 @@ const ManageTagsInModal = <RecordType extends IRecord>({
     setOpenModalOneTag(false);
   };
 
-  const handleSuscribeUpdateTagColor = (event: CustomEvent) => {
-    const data: { color: string; tagId: string } = event.detail;
-
+  const handleSuscribeUpdateTag = (event: CustomEvent) => {
+    console.log(handleSuscribeUpdateTag);
+    const data: ITag = event.detail;
     setServerTags((prev) =>
       prev.map((t) => {
-        return t._id === data.tagId ? { ...t, color: data.color } : t;
+        return t._id === data._id ? { ...data } : t;
       })
     );
     setItems((prev) =>
       prev.map((t) => {
-        return t._id === data.tagId ? { ...t, color: data.color } : t;
-      })
-    );
-  };
-  const handleSuscribeUpdateTagName = (event: CustomEvent) => {
-    const data: { name: string; tagId: string } = event.detail;
-    setServerTags((prev) =>
-      prev.map((t) => {
-        return t._id === data.tagId ? { ...t, name: data.name } : t;
-      })
-    );
-    setItems((prev) =>
-      prev.map((t) => {
-        return t._id === data.tagId ? { ...t, name: data.name } : t;
+        return t._id === data._id ? { ...data } : t;
       })
     );
   };
@@ -271,13 +258,10 @@ const ManageTagsInModal = <RecordType extends IRecord>({
       handleSuscribeReloadTagsList as EventListener
     );
     window.addEventListener(
-      "updateTagColor",
-      handleSuscribeUpdateTagColor as EventListener
+      "updateTag",
+      handleSuscribeUpdateTag as EventListener
     );
-    window.addEventListener(
-      "updateTagName",
-      handleSuscribeUpdateTagName as EventListener
-    );
+
     window.addEventListener(
       "deleteTag",
       handleSuscribeDeleteTag as EventListener
@@ -288,13 +272,10 @@ const ManageTagsInModal = <RecordType extends IRecord>({
         handleSuscribeReloadTagsList as EventListener
       );
       window.removeEventListener(
-        "updateTagName",
-        handleSuscribeUpdateTagName as EventListener
+        "updateTag",
+        handleSuscribeUpdateTag as EventListener
       );
-      window.removeEventListener(
-        "updateTagColor",
-        handleSuscribeUpdateTagColor as EventListener
-      );
+
       window.removeEventListener(
         "deleteTag",
         handleSuscribeDeleteTag as EventListener
@@ -566,62 +547,3 @@ function guidGenerator() {
     S4()
   );
 }
-// setServerTags([
-//   {
-//     _id: "65ae8886212d300631d71cc8",
-//     name: "ddd",
-//     color: "rgb(227, 226, 224)",
-//     createdAt: "2024-01-22T15:23:50.095Z",
-//     updatedAt: "2024-01-22T15:23:50.095Z",
-//   },
-//   {
-//     _id: "65ae41fa9377bfc78a51228e",
-//     name: "test",
-//     color: "rgb(232, 222, 238)",
-//     createdAt: "2024-01-22T10:22:50.945Z",
-//     updatedAt: "2024-01-22T10:22:50.945Z",
-//   },
-//   {
-//     _id: "656f3e57dbffbe3175e681a2",
-//     name: "test query",
-//     color: "rgb(211, 229, 239)",
-//     createdAt: "2023-12-05T15:14:31.263Z",
-//     updatedAt: "2023-12-05T15:14:31.263Z",
-//   },
-//   {
-//     _id: "656f3d67dbffbe3175e6814e",
-//     name: "New tag3",
-//     color: "rgb(232, 222, 238)",
-//     createdAt: "2023-12-05T15:10:31.576Z",
-//     updatedAt: "2023-12-05T15:10:31.576Z",
-//   },
-//   {
-//     _id: "656f16e4ea245f99cdc241ff",
-//     name: "new",
-//     color: "rgb(219, 237, 219)",
-//     createdAt: "2023-12-05T12:26:12.024Z",
-//     updatedAt: "2023-12-05T12:26:12.024Z",
-//   },
-//   {
-//     _id: "656f13f9ddf0a67d9728031f",
-//     name: "tag4",
-//     color: "rgb(238, 224, 218)",
-//     createdAt: "2023-12-05T12:13:45.796Z",
-//     updatedAt: "2023-12-05T12:13:45.796Z",
-//   },
-//   {
-//     _id: "656f11990c90620875db5eca",
-//     name: "tag2",
-//     color: "rgb(238, 224, 218)",
-//     createdAt: "2023-12-05T12:03:37.422Z",
-//     updatedAt: "2023-12-05T12:03:37.422Z",
-//   },
-//   {
-//     _id: "656f10a70c90620875db5e97",
-//     name: "tag3",
-//     color: "rgb(211, 229, 239)",
-//     createdAt: "2023-12-05T11:59:35.177Z",
-//     updatedAt: "2023-12-05T11:59:35.177Z",
-//   },
-// ]);
-// setLoading(false);

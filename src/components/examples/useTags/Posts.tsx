@@ -140,29 +140,20 @@ const Posts = () => {
       })
       .finally(() => {});
   };
-  const handleSuscribeUpdateTagColor = (event: CustomEvent) => {
-    const data: { color: string; tagId: string } = event.detail;
+
+  const handleSuscribeUpdateTag = (event: CustomEvent) => {
+    const data: ITag = event.detail;
     // console.log(data);
     setItems((prev: any) =>
       prev.map((arch: any) => {
         arch.tags = arch.tags.map((t: any) => {
-          return t._id === data.tagId ? { ...t, color: data.color } : t;
+          return t._id === data._id ? { ...data } : t;
         });
         return { ...arch };
       })
     );
   };
-  const handleSuscribeUpdateTagName = (event: CustomEvent) => {
-    const data: { name: string; tagId: string } = event.detail;
-    setItems((prev: any) =>
-      prev.map((arch: any) => {
-        arch.tags = arch.tags.map((t: any) => {
-          return t._id === data.tagId ? { ...t, name: data.name } : t;
-        });
-        return { ...arch };
-      })
-    );
-  };
+
   const handleSuscribeDeleteTag = (event: CustomEvent) => {
     const data: { tagId: string } = event.detail;
     setItems((prev: any) =>
@@ -202,12 +193,8 @@ const Posts = () => {
       handleSuscribeReloadRecordcList as EventListener
     );
     window.addEventListener(
-      "updateTagColor",
-      handleSuscribeUpdateTagColor as EventListener
-    );
-    window.addEventListener(
-      "updateTagName",
-      handleSuscribeUpdateTagName as EventListener
+      "updateTag",
+      handleSuscribeUpdateTag as EventListener
     );
     window.addEventListener(
       "deleteTag",
@@ -230,13 +217,10 @@ const Posts = () => {
         "reloadRecordcList",
         handleSuscribeReloadRecordcList as EventListener
       );
+
       window.addEventListener(
-        "updateTagColor",
-        handleSuscribeUpdateTagColor as EventListener
-      );
-      window.addEventListener(
-        "updateTagName",
-        handleSuscribeUpdateTagName as EventListener
+        "updateTag",
+        handleSuscribeUpdateTag as EventListener
       );
       window.addEventListener(
         "deleteTag",

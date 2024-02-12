@@ -26,14 +26,6 @@
           "createdAt": "2023-12-05T15:10:31.576Z",
           "updatedAt": "2023-12-05T15:10:31.576Z",
           "id": "17b7"
-        },
-        {
-          "_id": "96af",
-          "name": "test query",
-          "color": "rgb(211, 229, 239)",
-          "createdAt": "2023-12-05T15:14:31.263Z",
-          "updatedAt": "2023-12-05T15:14:31.263Z",
-          "id": "96af"
         }
       ],
       "id": "1006"
@@ -49,25 +41,14 @@
       "id": "b026"
     },
     {
-      "_id": "8e23",
-      "name": "test",
-      "color": "rgb(232, 222, 238)",
-      "createdAt": "2024-01-22T10:22:50.945Z",
-      "updatedAt": "2024-01-22T10:22:50.945Z",
-      "id": "8e23"
-    },
-    {
       "_id": "96af",
-      "name": "test222",
-      "color": "rgb(227, 226, 224)",
+      "color": "rgb(253, 236, 200)",
+      "name": "test query",
       "id": "96af"
     },
     {
       "_id": "17b7",
-      "name": "New tag3",
-      "color": "rgb(232, 222, 238)",
-      "createdAt": "2023-12-05T15:10:31.576Z",
-      "updatedAt": "2023-12-05T15:10:31.576Z",
+      "name": "New tag32",
       "id": "17b7"
     },
     {
@@ -107,13 +88,6 @@
       "color": "rgb(211, 229, 239)",
       "id": "0f3c",
       "name": "kkddd"
-    },
-    {
-      "id": "a436",
-      "fileRecordId": "1006",
-      "name": "ddd11",
-      "color": "rgb(219, 237, 219)",
-      "_id": "a436"
     }
   ],
   "profile": {

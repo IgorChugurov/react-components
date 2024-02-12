@@ -1,7 +1,6 @@
 import React from "react";
 import { styled, Theme } from "@mui/system";
 import { SxProps } from "@mui/system";
-import { SystemStyleObject, ResponsiveStyleValue } from "@mui/system";
 
 interface CustomIconProps {
   iconColor?: string;

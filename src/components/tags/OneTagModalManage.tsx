@@ -47,17 +47,6 @@ const OneTagModalManage = ({
   const childrenRef = useRef<HTMLDivElement>(null);
   const deleteBoxWrap = useRef<HTMLDivElement>(null);
 
-  // get height and set top position of modal
-
-  //https://medium.com/@teh_builder/ref-objects-inside-useeffect-hooks-eb7c15198780
-  //https://legacy.reactjs.org/docs/hooks-faq.html?source=post_page-----eb7c15198780--------------------------------#how-can-i-measure-a-dom-node
-  // how set it in hook
-  // const [height, setHeight] = useState(0);
-  // const measuredRef = useCallback((node: any) => {
-  //   if (node !== null) {
-  //     setHeight(node.getBoundingClientRect().height);
-  //   }
-  // }, []);
   const { height, refCallback } = useRefHeightMeasure();
   useEffect(() => {
     if (height) {
@@ -78,21 +67,20 @@ const OneTagModalManage = ({
   }, [height]);
   // *********************************************
   //******************************************* */
-
+  const dispatcUpdateTag = (tag: ITag) => {
+    const event = new CustomEvent("updateTag", {
+      detail: tag,
+    });
+    window.dispatchEvent(event);
+  };
   const onChange = (event: any) => setValue(event.target.value);
+
   const changeColor = async (color: string) => {
     setLoadind(true);
     setItem({ ...item, color: color });
     try {
       await dataService.updagteOneTag({ _id: tag._id || tag.id, color });
-      //emitGlobalEvent({ event: "updateTagColor", data: { color, tagId: tag._id } });
-
-      const event = new CustomEvent("updateTagColor", {
-        detail: { color, tagId: tag._id || tag.id },
-      });
-      //send event for update tags list in Manage TagsInModal and in the TagsList
-      window.dispatchEvent(event);
-
+      dispatcUpdateTag({ ...tag, color, id: tag._id }); //id:tag._id jnly for json-server for examples
       setLoadind(false);
     } catch (error) {
       setLoadind(false);
@@ -122,11 +110,7 @@ const OneTagModalManage = ({
     setLoadind(true);
     try {
       await dataService.updagteOneTag({ _id: tag._id || tag.id, name: val });
-      const event = new CustomEvent("updateTagName", {
-        detail: { name: val, tagId: tag._id || tag.id },
-      });
-      window.dispatchEvent(event);
-
+      dispatcUpdateTag({ ...tag, name: val, id: tag._id });
       closeModal();
       setLoadind(false);
     } catch (error) {
