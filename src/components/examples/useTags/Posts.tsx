@@ -14,6 +14,10 @@ import {
   updagteOneTag,
 } from "../../../service/tags";
 import { ITag } from "../../tags/model/tag";
+import {
+  outerHandlersAdd,
+  outerHandlersRemove,
+} from "../../tags/outerHandlers/outerHandlers";
 
 const Posts = () => {
   const [items, setItems] = useState<IRecodrs[]>([]);
@@ -175,57 +179,74 @@ const Posts = () => {
         console.log(err);
       })
       .finally(() => {});
+    outerHandlersAdd({
+      handleSuscribeAddTagInRecord,
+      handleSuscribeDeleteTagInRecord,
+      handleSuscribeUpdateRecord,
+      handleSuscribeReloadRecordcList,
+      handleSuscribeUpdateTag,
+      handleSuscribeDeleteTag,
+    });
 
-    window.addEventListener(
-      "addTagInRecord",
-      handleSuscribeAddTagInRecord as EventListener
-    );
-    window.addEventListener(
-      "deleteTagInRecord",
-      handleSuscribeDeleteTagInRecord as EventListener
-    );
-    window.addEventListener(
-      "updateRecord",
-      handleSuscribeUpdateRecord as EventListener
-    );
-    window.addEventListener(
-      "reloadRecordcList",
-      handleSuscribeReloadRecordcList as EventListener
-    );
-    window.addEventListener(
-      "updateTag",
-      handleSuscribeUpdateTag as EventListener
-    );
-    window.addEventListener(
-      "deleteTag",
-      handleSuscribeDeleteTag as EventListener
-    );
+    // window.addEventListener(
+    //   "addTagInRecord",
+    //   handleSuscribeAddTagInRecord as EventListener
+    // );
+    // window.addEventListener(
+    //   "deleteTagInRecord",
+    //   handleSuscribeDeleteTagInRecord as EventListener
+    // );
+    // window.addEventListener(
+    //   "updateRecord",
+    //   handleSuscribeUpdateRecord as EventListener
+    // );
+    // window.addEventListener(
+    //   "reloadRecordcList",
+    //   handleSuscribeReloadRecordcList as EventListener
+    // );
+    // window.addEventListener(
+    //   "updateTag",
+    //   handleSuscribeUpdateTag as EventListener
+    // );
+    // window.addEventListener(
+    //   "deleteTag",
+    //   handleSuscribeDeleteTag as EventListener
+    // );
     return () => {
-      window.addEventListener(
-        "deleteTagInRecord",
-        handleSuscribeDeleteTagInRecord as EventListener
-      );
-      window.addEventListener(
-        "addTagInRecord",
-        handleSuscribeAddTagInRecord as EventListener
-      );
-      window.addEventListener(
-        "updateRecord",
-        handleSuscribeUpdateRecord as EventListener
-      );
-      window.addEventListener(
-        "reloadRecordcList",
-        handleSuscribeReloadRecordcList as EventListener
-      );
+      outerHandlersRemove({
+        handleSuscribeAddTagInRecord,
+        handleSuscribeDeleteTagInRecord,
+        handleSuscribeUpdateRecord,
+        handleSuscribeReloadRecordcList,
+        handleSuscribeUpdateTag,
+        handleSuscribeDeleteTag,
+      });
 
-      window.addEventListener(
-        "updateTag",
-        handleSuscribeUpdateTag as EventListener
-      );
-      window.addEventListener(
-        "deleteTag",
-        handleSuscribeDeleteTag as EventListener
-      );
+      // window.addEventListener(
+      //   "deleteTagInRecord",
+      //   handleSuscribeDeleteTagInRecord as EventListener
+      // );
+      // window.addEventListener(
+      //   "addTagInRecord",
+      //   handleSuscribeAddTagInRecord as EventListener
+      // );
+      // window.addEventListener(
+      //   "updateRecord",
+      //   handleSuscribeUpdateRecord as EventListener
+      // );
+      // window.addEventListener(
+      //   "reloadRecordcList",
+      //   handleSuscribeReloadRecordcList as EventListener
+      // );
+
+      // window.addEventListener(
+      //   "updateTag",
+      //   handleSuscribeUpdateTag as EventListener
+      // );
+      // window.addEventListener(
+      //   "deleteTag",
+      //   handleSuscribeDeleteTag as EventListener
+      // );
     };
   }, []);
 

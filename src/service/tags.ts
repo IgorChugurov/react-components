@@ -1,6 +1,7 @@
-import RequestService, { IListResponse } from "./request";
+import { ITag } from "../components/tags/model/tag";
+import RequestService from "./request";
 
-export const getAllTags = <T>(): Promise<IListResponse<T>> => {
+export const getAllTags = (): Promise<ITag[]> => {
   return new Promise((resolve, reject) => {
     var req = {
       url: `http://localhost:3000/tags`,
@@ -16,7 +17,7 @@ export const getAllTags = <T>(): Promise<IListResponse<T>> => {
     );
   });
 };
-export const getOneTag = <T>(id: string): Promise<T> => {
+export const getOneTag = (id: string): Promise<ITag> => {
   return new Promise((resolve, reject) => {
     var req = {
       url: `http://localhost:3000/tags/${id}`,
@@ -32,7 +33,7 @@ export const getOneTag = <T>(id: string): Promise<T> => {
     );
   });
 };
-export const createOneTag = <T>(body: any): Promise<T> => {
+export const createOneTag = (body: any): Promise<ITag> => {
   if (body._id) {
     delete body._id;
   }
@@ -53,7 +54,7 @@ export const createOneTag = <T>(body: any): Promise<T> => {
     );
   });
 };
-export const updagteOneTag = <T>(body: any): Promise<T> => {
+export const updagteOneTag = (body: any): Promise<ITag> => {
   return new Promise((resolve, reject) => {
     var req = {
       url: `http://localhost:3000/tags/${body._id}`,
@@ -71,7 +72,7 @@ export const updagteOneTag = <T>(body: any): Promise<T> => {
   });
 };
 
-export const deleteOneTag = (id: string) => {
+export const deleteOneTag = (id: string): Promise<any> => {
   return new Promise((resolve, reject) => {
     var req = {
       url: `http://localhost:3000/tags/${id}`,
@@ -87,7 +88,7 @@ export const deleteOneTag = (id: string) => {
     );
   });
 };
-export const deleteManyTags = (body: any) => {
+export const deleteManyTags = (body: any): Promise<any> => {
   return new Promise((resolve, reject) => {
     var req = {
       url: `http://localhost:3000/tags/delete-many`,

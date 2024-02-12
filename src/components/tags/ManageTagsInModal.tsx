@@ -125,14 +125,8 @@ const ManageTagsInModal = <RecordType extends IRecord>({
       input.current.value = "";
     }
     setSearch("");
-    let archRecordTags: ITag[];
     let tag = serverTags.find((t) => t.name === search);
     if (!tag) {
-      const data = {
-        [recordModel]: record._id,
-        name: search,
-        color: bgcolor || "",
-      };
       const newTag = {
         name: search,
         color: bgcolor || "",
@@ -142,27 +136,14 @@ const ManageTagsInModal = <RecordType extends IRecord>({
       setItems([...items]);
       setServerTags([...serverTags, newTag]);
       try {
-        // const res = await dataService.createOneTag<
-        //   typeof data,
-        //   { fileRecord: RecordType; tags: ITag[]; tag: ITag }
-        // >(data);
-        const res = await dataService.createOneTag<typeof data, ITag>(data);
-        //console.log(res);
+        const res = await dataService.createOneTag(newTag);
+        // only for examples json-server
         if (res && !res._id) {
           res._id = res.id || "";
-          const ut = await dataService.updagteOneTag(res);
-          console.log(ut);
+          await dataService.updagteOneTag(res);
         }
-
-        // archRecordTags = res.fileRecord.tags;
-        // setServerTags([...res.tags]);
-
-        // const event = new CustomEvent("updateRecord", {
-        //   detail: { ...record, tags: [...archRecordTags] },
-        // });
-        // window.dispatchEvent(event);
         dataService.getAllTags().then((res: any) => {
-          setServerTags(res.items || res);
+          setServerTags(res);
         });
 
         addTagInRecord(res);
@@ -172,7 +153,7 @@ const ManageTagsInModal = <RecordType extends IRecord>({
           detail: { ...record },
         });
         window.dispatchEvent(event);
-        //setServerTags((prev) => prev.filter((t) => t._id !== "newTag"));
+        setServerTags((prev) => prev.filter((t) => t._id !== "newTag"));
       } finally {
         setLoading(false);
         handleSuscribeReloadTagsList();
@@ -237,7 +218,7 @@ const ManageTagsInModal = <RecordType extends IRecord>({
   };
   const handleSuscribeReloadTagsList = () => {
     dataService.getAllTags().then((res: any) => {
-      setServerTags(res.items || res);
+      setServerTags(res);
     });
   };
 
@@ -246,7 +227,7 @@ const ManageTagsInModal = <RecordType extends IRecord>({
     async function getTags() {
       try {
         const res = await dataService.getAllTags();
-        setServerTags(res.items || res);
+        setServerTags(res);
         //console.log(res);
       } catch (err) {
         console.log(err);
