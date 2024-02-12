@@ -40,6 +40,7 @@ export const createOneTag = <T>(body: any): Promise<T> => {
     var req = {
       url: `http://localhost:3000/tags`,
       method: "POST",
+
       body: body,
     };
     RequestService.send(req).then(
