@@ -65,13 +65,20 @@ const TagsList = <RecordType extends IRecord>({
   }, [initTags]);
 
   const handleSuscribeUpdateTag = (event: CustomEvent) => {
-    console.log("handleSuscribeUpdateTag");
     const data: ITag = event.detail;
     setInitTags((prev) => [
       ...prev.map((t) => {
         return t._id === data._id ? { ...data } : t;
       }),
     ]);
+  };
+  const handleSuscribeDeleteTag = (event: CustomEvent) => {
+    const data: { tagId: string } = event.detail;
+    setInitTags((prev) =>
+      prev.filter((t) => {
+        return t._id !== data.tagId;
+      })
+    );
   };
 
   useEffect(() => {
@@ -88,12 +95,20 @@ const TagsList = <RecordType extends IRecord>({
       "updateTag",
       handleSuscribeUpdateTag as EventListener
     );
+    window.addEventListener(
+      "deleteTag",
+      handleSuscribeDeleteTag as EventListener
+    );
     return () => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleResize);
       window.removeEventListener(
         "updateTag",
         handleSuscribeUpdateTag as EventListener
+      );
+      window.removeEventListener(
+        "deleteTag",
+        handleSuscribeDeleteTag as EventListener
       );
     };
   }, []);

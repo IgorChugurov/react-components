@@ -120,18 +120,6 @@ const ManageTagsInModal = <RecordType extends IRecord>({
     window.dispatchEvent(event);
   };
 
-  const deleteTag = async (tag: ITag, i: number) => {
-    if (input.current) {
-      input.current.value = "";
-    }
-    setSearch("");
-    items.splice(i, 1);
-    setItems([...items]);
-    dispatchTagsEvent("deleteTagInRecord", {
-      [recordModel]: record._id,
-      tagId: tag._id,
-    });
-  };
   const createTag = async () => {
     //console.log(search);
     setLoading(true);
@@ -166,11 +154,11 @@ const ManageTagsInModal = <RecordType extends IRecord>({
         addTagInRecord(res);
       } catch (error) {
         console.log(error);
-        dispatchTagsEvent("updateRecord", { ...record });
+        setItems((prev) => prev.filter((t) => t._id !== "newTag"));
         setServerTags((prev) => prev.filter((t) => t._id !== "newTag"));
       } finally {
         setLoading(false);
-        handleSuscribeReloadTagsList();
+        //handleSuscribeReloadTagsList();
       }
     } else {
       addTagInRecord(tag);
@@ -180,6 +168,18 @@ const ManageTagsInModal = <RecordType extends IRecord>({
     if (e.key === "Enter") {
       createTag();
     }
+  };
+  const deleteTagInRecord = async (tag: ITag, i: number) => {
+    if (input.current) {
+      input.current.value = "";
+    }
+    setSearch("");
+    items.splice(i, 1);
+    setItems([...items]);
+    dispatchTagsEvent("deleteTagInRecord", {
+      [recordModel]: record._id,
+      tagId: tag._id,
+    });
   };
   const addTagInRecord = async (tag: ITag) => {
     if (input.current) {
@@ -207,20 +207,10 @@ const ManageTagsInModal = <RecordType extends IRecord>({
         return t._id === data._id ? { ...data } : t;
       })
     );
-    // setItems((prev) =>
-    //   prev.map((t) => {
-    //     return t._id === data._id ? { ...data } : t;
-    //   })
-    // );
   };
   const handleSuscribeDeleteTag = (event: CustomEvent) => {
     const data: { tagId: string } = event.detail;
     setServerTags((prev) =>
-      prev.filter((t) => {
-        return t._id !== data.tagId;
-      })
-    );
-    setItems((prev) =>
       prev.filter((t) => {
         return t._id !== data.tagId;
       })
@@ -348,7 +338,7 @@ const ManageTagsInModal = <RecordType extends IRecord>({
                 <Box
                   role="button"
                   className={styles.tag_delete_button}
-                  onClick={() => deleteTag(tag, i)}
+                  onClick={() => deleteTagInRecord(tag, i)}
                 >
                   <ClearOutlinedIcon
                     color="#37352f73"

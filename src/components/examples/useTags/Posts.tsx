@@ -158,11 +158,18 @@ const Posts = () => {
     outerHandlersAdd({
       handleSuscribeAddTagInRecord,
       handleSuscribeDeleteTagInRecord,
-      handleSuscribeUpdateRecord,
-      handleSuscribeReloadRecordcList,
+
       // handleSuscribeUpdateTag,
       // handleSuscribeDeleteTag,
     });
+    window.addEventListener(
+      "updateRecord",
+      handleSuscribeUpdateRecord as EventListener
+    );
+    window.addEventListener(
+      "reloadRecordcList",
+      handleSuscribeReloadRecordcList as EventListener
+    );
 
     // window.addEventListener(
     //   "addTagInRecord",
@@ -192,11 +199,16 @@ const Posts = () => {
       outerHandlersRemove({
         handleSuscribeAddTagInRecord,
         handleSuscribeDeleteTagInRecord,
-        handleSuscribeUpdateRecord,
-        handleSuscribeReloadRecordcList,
-        // handleSuscribeUpdateTag,
-        // handleSuscribeDeleteTag,
       });
+
+      window.addEventListener(
+        "updateRecord",
+        handleSuscribeUpdateRecord as EventListener
+      );
+      window.addEventListener(
+        "reloadRecordcList",
+        handleSuscribeReloadRecordcList as EventListener
+      );
 
       // window.addEventListener(
       //   "deleteTagInRecord",
