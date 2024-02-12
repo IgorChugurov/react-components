@@ -60,15 +60,15 @@ const Posts = () => {
 
     addTagRecord(data)
       .then((res: any) => {
-        setItems((prev: any) => [
-          ...prev.map((d: any) => {
-            if (d._id === data.fileRecordId) {
-              return { ...d, tags: res.tags };
-            } else {
-              return d;
-            }
-          }),
-        ]);
+        // setItems((prev: any) => [
+        //   ...prev.map((d: any) => {
+        //     if (d._id === data.fileRecordId) {
+        //       return { ...d, tags: res.tags };
+        //     } else {
+        //       return d;
+        //     }
+        //   }),
+        // ]);
       })
       .catch((error) => {
         console.log(error);
@@ -94,17 +94,17 @@ const Posts = () => {
     setLoading(true);
     deleteTagRecord(data)
       .then((res) => {
-        if (res && res.tags) {
-          setItems((prev: any) => [
-            ...prev.map((d: any) => {
-              if (d._id === data.fileRecordId) {
-                return { ...d, tags: res.tags };
-              } else {
-                return d;
-              }
-            }),
-          ]);
-        }
+        // if (res && res.tags) {
+        //   setItems((prev: any) => [
+        //     ...prev.map((d: any) => {
+        //       if (d._id === data.fileRecordId) {
+        //         return { ...d, tags: res.tags };
+        //       } else {
+        //         return d;
+        //       }
+        //     }),
+        //   ]);
+        // }
       })
       .catch((error: any) => {
         console.log(error);
@@ -288,9 +288,9 @@ const ItemWithTag = ({ item }: { item: any }) => {
       </Box>
       <Box
         sx={{
-          height: "24px",
+          //height: "24px",
           display: "flex",
-          width: "200px",
+          width: "100px",
         }}
       >
         <TagsList<any>

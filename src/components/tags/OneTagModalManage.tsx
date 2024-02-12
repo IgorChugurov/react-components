@@ -90,7 +90,7 @@ const OneTagModalManage = ({
   const deleteTag = async () => {
     try {
       setLoadind(true);
-      await dataService.deleteOneTag(tag._id || tag.id);
+      await dataService.deleteOneTag(tag._id || tag.id || "");
       const event = new CustomEvent("deleteTag", {
         detail: { tagId: tag._id || tag.id },
       });

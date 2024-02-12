@@ -102,6 +102,12 @@ const ManageTagsInModal = <RecordType extends IRecord>({
     setMouseWasInContainer(false);
   };
   //console.log(search);
+  const dispatchTagsEvent = (type: string, data: any) => {
+    const event = new CustomEvent(type, {
+      detail: data,
+    });
+    window.dispatchEvent(event);
+  };
 
   const deleteTag = async (tag: ITag, i: number) => {
     if (input.current) {
@@ -110,13 +116,10 @@ const ManageTagsInModal = <RecordType extends IRecord>({
     setSearch("");
     items.splice(i, 1);
     setItems([...items]);
-    const event = new CustomEvent("deleteTagInRecord", {
-      detail: {
-        [recordModel]: record._id,
-        tagId: tag._id,
-      },
+    dispatchTagsEvent("deleteTagInRecord", {
+      [recordModel]: record._id,
+      tagId: tag._id,
     });
-    window.dispatchEvent(event);
   };
   const createTag = async () => {
     //console.log(search);
@@ -142,6 +145,9 @@ const ManageTagsInModal = <RecordType extends IRecord>({
           res._id = res.id || "";
           await dataService.updagteOneTag(res);
         }
+        setItems((prev) =>
+          prev.map((item) => (item._id === "newTag" ? res : item))
+        );
         dataService.getAllTags().then((res: any) => {
           setServerTags(res);
         });
@@ -149,10 +155,7 @@ const ManageTagsInModal = <RecordType extends IRecord>({
         addTagInRecord(res);
       } catch (error) {
         console.log(error);
-        const event = new CustomEvent("updateRecord", {
-          detail: { ...record },
-        });
-        window.dispatchEvent(event);
+        dispatchTagsEvent("updateRecord", { ...record });
         setServerTags((prev) => prev.filter((t) => t._id !== "newTag"));
       } finally {
         setLoading(false);
@@ -175,13 +178,10 @@ const ManageTagsInModal = <RecordType extends IRecord>({
     if (!items.find((t) => t._id === tag._id)) {
       items.push(tag);
       setItems([...items]);
-      const event = new CustomEvent("addTagInRecord", {
-        detail: {
-          [recordModel]: record._id,
-          tagId: tag._id,
-        },
+      dispatchTagsEvent("addTagInRecord", {
+        [recordModel]: record._id,
+        tagId: tag._id,
       });
-      window.dispatchEvent(event);
     }
   };
 
