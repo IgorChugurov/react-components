@@ -3,15 +3,15 @@ export const outerHandlersAdd = ({
   handleSuscribeDeleteTagInRecord,
   handleSuscribeUpdateRecord,
   handleSuscribeReloadRecordcList,
-  handleSuscribeUpdateTag,
-  handleSuscribeDeleteTag,
-}: {
+}: //   handleSuscribeUpdateTag,
+//   handleSuscribeDeleteTag,
+{
   handleSuscribeAddTagInRecord: (event: CustomEvent) => void;
   handleSuscribeDeleteTagInRecord: (event: CustomEvent) => void;
   handleSuscribeUpdateRecord: (event: CustomEvent) => void;
   handleSuscribeReloadRecordcList: (event: CustomEvent) => void;
-  handleSuscribeUpdateTag: (event: CustomEvent) => void;
-  handleSuscribeDeleteTag: (event: CustomEvent) => void;
+  //   handleSuscribeUpdateTag: (event: CustomEvent) => void;
+  //   handleSuscribeDeleteTag: (event: CustomEvent) => void;
 }) => {
   window.addEventListener(
     "addTagInRecord",
@@ -29,14 +29,14 @@ export const outerHandlersAdd = ({
     "reloadRecordcList",
     handleSuscribeReloadRecordcList as EventListener
   );
-  window.addEventListener(
-    "updateTag",
-    handleSuscribeUpdateTag as EventListener
-  );
-  window.addEventListener(
-    "deleteTag",
-    handleSuscribeDeleteTag as EventListener
-  );
+  //   window.addEventListener(
+  //     "updateTag",
+  //     handleSuscribeUpdateTag as EventListener
+  //   );
+  //   window.addEventListener(
+  //     "deleteTag",
+  //     handleSuscribeDeleteTag as EventListener
+  //   );
 };
 
 export const outerHandlersRemove = ({
@@ -44,15 +44,15 @@ export const outerHandlersRemove = ({
   handleSuscribeDeleteTagInRecord,
   handleSuscribeUpdateRecord,
   handleSuscribeReloadRecordcList,
-  handleSuscribeUpdateTag,
-  handleSuscribeDeleteTag,
-}: {
+}: //   handleSuscribeUpdateTag,
+//   handleSuscribeDeleteTag,
+{
   handleSuscribeAddTagInRecord: (event: CustomEvent) => void;
   handleSuscribeDeleteTagInRecord: (event: CustomEvent) => void;
   handleSuscribeUpdateRecord: (event: CustomEvent) => void;
   handleSuscribeReloadRecordcList: (event: CustomEvent) => void;
-  handleSuscribeUpdateTag: (event: CustomEvent) => void;
-  handleSuscribeDeleteTag: (event: CustomEvent) => void;
+  //   handleSuscribeUpdateTag: (event: CustomEvent) => void;
+  //   handleSuscribeDeleteTag: (event: CustomEvent) => void;
 }) => {
   window.addEventListener(
     "addTagInRecord",
@@ -70,12 +70,12 @@ export const outerHandlersRemove = ({
     "reloadRecordcList",
     handleSuscribeReloadRecordcList as EventListener
   );
-  window.addEventListener(
-    "updateTag",
-    handleSuscribeUpdateTag as EventListener
-  );
-  window.addEventListener(
-    "deleteTag",
-    handleSuscribeDeleteTag as EventListener
-  );
+  //   window.addEventListener(
+  //     "updateTag",
+  //     handleSuscribeUpdateTag as EventListener
+  //   );
+  //   window.addEventListener(
+  //     "deleteTag",
+  //     handleSuscribeDeleteTag as EventListener
+  //   );
 };

@@ -59,17 +59,6 @@ const Posts = () => {
     setLoading(true);
 
     addTagRecord(data)
-      .then((res: any) => {
-        // setItems((prev: any) => [
-        //   ...prev.map((d: any) => {
-        //     if (d._id === data.fileRecordId) {
-        //       return { ...d, tags: res.tags };
-        //     } else {
-        //       return d;
-        //     }
-        //   }),
-        // ]);
-      })
       .catch((error) => {
         console.log(error);
         setItems((prev) => [
@@ -93,19 +82,6 @@ const Posts = () => {
     } = event.detail;
     setLoading(true);
     deleteTagRecord(data)
-      .then((res) => {
-        // if (res && res.tags) {
-        //   setItems((prev: any) => [
-        //     ...prev.map((d: any) => {
-        //       if (d._id === data.fileRecordId) {
-        //         return { ...d, tags: res.tags };
-        //       } else {
-        //         return d;
-        //       }
-        //     }),
-        //   ]);
-        // }
-      })
       .catch((error: any) => {
         console.log(error);
         setItems((prev) => [
@@ -145,30 +121,30 @@ const Posts = () => {
       .finally(() => {});
   };
 
-  const handleSuscribeUpdateTag = (event: CustomEvent) => {
-    const data: ITag = event.detail;
-    // console.log(data);
-    setItems((prev: any) =>
-      prev.map((arch: any) => {
-        arch.tags = arch.tags.map((t: any) => {
-          return t._id === data._id ? { ...data } : t;
-        });
-        return { ...arch };
-      })
-    );
-  };
+  // const handleSuscribeUpdateTag = (event: CustomEvent) => {
+  //   const data: ITag = event.detail;
 
-  const handleSuscribeDeleteTag = (event: CustomEvent) => {
-    const data: { tagId: string } = event.detail;
-    setItems((prev: any) =>
-      prev.map((arch: any) => {
-        arch.tags = arch.tags.filter((t: any) => {
-          return t._id !== data.tagId;
-        });
-        return { ...arch };
-      })
-    );
-  };
+  //   setItems((prev: any) =>
+  //     prev.map((arch: any) => {
+  //       arch.tags = arch.tags.map((t: any) => {
+  //         return t._id === data._id ? { ...data } : t;
+  //       });
+  //       return { ...arch };
+  //     })
+  //   );
+  // };
+
+  // const handleSuscribeDeleteTag = (event: CustomEvent) => {
+  //   const data: { tagId: string } = event.detail;
+  //   setItems((prev: any) =>
+  //     prev.map((arch: any) => {
+  //       arch.tags = arch.tags.filter((t: any) => {
+  //         return t._id !== data.tagId;
+  //       });
+  //       return { ...arch };
+  //     })
+  //   );
+  // };
 
   useEffect(() => {
     getRecodrs()
@@ -184,8 +160,8 @@ const Posts = () => {
       handleSuscribeDeleteTagInRecord,
       handleSuscribeUpdateRecord,
       handleSuscribeReloadRecordcList,
-      handleSuscribeUpdateTag,
-      handleSuscribeDeleteTag,
+      // handleSuscribeUpdateTag,
+      // handleSuscribeDeleteTag,
     });
 
     // window.addEventListener(
@@ -218,8 +194,8 @@ const Posts = () => {
         handleSuscribeDeleteTagInRecord,
         handleSuscribeUpdateRecord,
         handleSuscribeReloadRecordcList,
-        handleSuscribeUpdateTag,
-        handleSuscribeDeleteTag,
+        // handleSuscribeUpdateTag,
+        // handleSuscribeDeleteTag,
       });
 
       // window.addEventListener(

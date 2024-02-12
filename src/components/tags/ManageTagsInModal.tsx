@@ -1,4 +1,12 @@
-import { useState, useEffect, ChangeEvent, KeyboardEvent, useRef } from "react";
+import {
+  useState,
+  useEffect,
+  ChangeEvent,
+  KeyboardEvent,
+  useRef,
+  SetStateAction,
+  Dispatch,
+} from "react";
 import { CircularProgress, Modal, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 
@@ -20,6 +28,8 @@ interface IProps<RecordType> {
   handleCloseModal: () => void;
   rect: any;
   setOpenModal: (val: boolean) => void;
+  items: ITag[];
+  setItems: Dispatch<SetStateAction<ITag[]>>;
   dataService: ITagsDataService;
   record: RecordType;
   sx?: any;
@@ -33,6 +43,8 @@ const ManageTagsInModal = <RecordType extends IRecord>({
   record,
   dataService,
   recordModel,
+  items,
+  setItems,
   sx = {},
 }: IProps<RecordType>) => {
   //console.log(record);
@@ -46,7 +58,6 @@ const ManageTagsInModal = <RecordType extends IRecord>({
 
   const [serverTags, setServerTags] = useState<ITag[]>([]);
   const [filteredTags, setFilteredTags] = useState<ITag[]>([]);
-  const [items, setItems] = useState<ITag[]>([]);
 
   const [mouseWasInContainer, setMouseWasInContainer] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -190,18 +201,17 @@ const ManageTagsInModal = <RecordType extends IRecord>({
   };
 
   const handleSuscribeUpdateTag = (event: CustomEvent) => {
-    console.log(handleSuscribeUpdateTag);
     const data: ITag = event.detail;
     setServerTags((prev) =>
       prev.map((t) => {
         return t._id === data._id ? { ...data } : t;
       })
     );
-    setItems((prev) =>
-      prev.map((t) => {
-        return t._id === data._id ? { ...data } : t;
-      })
-    );
+    // setItems((prev) =>
+    //   prev.map((t) => {
+    //     return t._id === data._id ? { ...data } : t;
+    //   })
+    // );
   };
   const handleSuscribeDeleteTag = (event: CustomEvent) => {
     const data: { tagId: string } = event.detail;
@@ -279,9 +289,6 @@ const ManageTagsInModal = <RecordType extends IRecord>({
     return () => {};
   }, [serverTags, search]);
 
-  useEffect(() => {
-    setItems([...record.tags]);
-  }, [record]);
   useEffect(() => {
     setTimeout(() => {
       if (modalInner.current) {

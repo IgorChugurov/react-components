@@ -23,6 +23,7 @@ const TagsList = <RecordType extends IRecord>({
 }) => {
   const [openModal, setOpenModal] = useState(false);
   const [items, setItems] = useState<ITag[]>([]);
+  const [initTags, setInitTags] = useState<ITag[]>([]);
   const [remainingItemCount, setRemainingItemCount] = useState(0);
   const [rect, setRect] = useState<any>();
   const wrapper = useRef<HTMLInputElement>(null);
@@ -54,12 +55,25 @@ const TagsList = <RecordType extends IRecord>({
   };
   useEffect(() => {
     if (record && record.tags) {
-      const data = record.tags.slice(0, quantity);
-      setRemainingItemCount(record.tags.length - data.length);
-      setItems([...data]);
-      //setItems(res1);
+      setInitTags(record.tags);
     }
   }, [record]);
+  useEffect(() => {
+    const data = initTags.slice(0, quantity);
+    setRemainingItemCount(initTags.length - data.length);
+    setItems([...data]);
+  }, [initTags]);
+
+  const handleSuscribeUpdateTag = (event: CustomEvent) => {
+    console.log("handleSuscribeUpdateTag");
+    const data: ITag = event.detail;
+    setInitTags((prev) => [
+      ...prev.map((t) => {
+        return t._id === data._id ? { ...data } : t;
+      }),
+    ]);
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       setOpenModal(false);
@@ -70,9 +84,17 @@ const TagsList = <RecordType extends IRecord>({
     };
     window.addEventListener("scroll", handleScroll);
     window.addEventListener("resize", handleResize);
+    window.addEventListener(
+      "updateTag",
+      handleSuscribeUpdateTag as EventListener
+    );
     return () => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleResize);
+      window.removeEventListener(
+        "updateTag",
+        handleSuscribeUpdateTag as EventListener
+      );
     };
   }, []);
 
@@ -84,6 +106,8 @@ const TagsList = <RecordType extends IRecord>({
           openModal={openModal}
           handleCloseModal={() => setOpenModal(false)}
           setOpenModal={setOpenModal}
+          items={initTags}
+          setItems={setInitTags}
           record={record}
           rect={rect}
           recordModel={recordModel}
