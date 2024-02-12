@@ -120,7 +120,7 @@ const TagsList = <RecordType extends IRecord>({
           dataService={dataService}
           openModal={openModal}
           handleCloseModal={() => setOpenModal(false)}
-          setOpenModal={setOpenModal}
+          //setOpenModal={setOpenModal}
           items={initTags}
           setItems={setInitTags}
           record={record}

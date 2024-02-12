@@ -22,11 +22,11 @@ export const outerHandlersRemove = ({
   handleSuscribeAddTagInRecord: (event: CustomEvent) => void;
   handleSuscribeDeleteTagInRecord: (event: CustomEvent) => void;
 }) => {
-  window.addEventListener(
+  window.removeEventListener(
     "addTagInRecord",
     handleSuscribeAddTagInRecord as EventListener
   );
-  window.addEventListener(
+  window.removeEventListener(
     "deleteTagInRecord",
     handleSuscribeDeleteTagInRecord as EventListener
   );

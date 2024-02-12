@@ -27,7 +27,7 @@ interface IProps<RecordType> {
   openModal: boolean;
   handleCloseModal: () => void;
   rect: any;
-  setOpenModal: (val: boolean) => void;
+  //setOpenModal: (val: boolean) => void;
   items: ITag[];
   setItems: Dispatch<SetStateAction<ITag[]>>;
   dataService: ITagsDataService;
@@ -38,7 +38,7 @@ interface IProps<RecordType> {
 const ManageTagsInModal = <RecordType extends IRecord>({
   openModal,
   handleCloseModal,
-  setOpenModal,
+  //setOpenModal,
   rect,
   record,
   dataService,

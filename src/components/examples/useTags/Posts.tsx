@@ -171,70 +171,20 @@ const Posts = () => {
       handleSuscribeReloadRecordcList as EventListener
     );
 
-    // window.addEventListener(
-    //   "addTagInRecord",
-    //   handleSuscribeAddTagInRecord as EventListener
-    // );
-    // window.addEventListener(
-    //   "deleteTagInRecord",
-    //   handleSuscribeDeleteTagInRecord as EventListener
-    // );
-    // window.addEventListener(
-    //   "updateRecord",
-    //   handleSuscribeUpdateRecord as EventListener
-    // );
-    // window.addEventListener(
-    //   "reloadRecordcList",
-    //   handleSuscribeReloadRecordcList as EventListener
-    // );
-    // window.addEventListener(
-    //   "updateTag",
-    //   handleSuscribeUpdateTag as EventListener
-    // );
-    // window.addEventListener(
-    //   "deleteTag",
-    //   handleSuscribeDeleteTag as EventListener
-    // );
     return () => {
       outerHandlersRemove({
         handleSuscribeAddTagInRecord,
         handleSuscribeDeleteTagInRecord,
       });
 
-      window.addEventListener(
+      window.removeEventListener(
         "updateRecord",
         handleSuscribeUpdateRecord as EventListener
       );
-      window.addEventListener(
+      window.removeEventListener(
         "reloadRecordcList",
         handleSuscribeReloadRecordcList as EventListener
       );
-
-      // window.addEventListener(
-      //   "deleteTagInRecord",
-      //   handleSuscribeDeleteTagInRecord as EventListener
-      // );
-      // window.addEventListener(
-      //   "addTagInRecord",
-      //   handleSuscribeAddTagInRecord as EventListener
-      // );
-      // window.addEventListener(
-      //   "updateRecord",
-      //   handleSuscribeUpdateRecord as EventListener
-      // );
-      // window.addEventListener(
-      //   "reloadRecordcList",
-      //   handleSuscribeReloadRecordcList as EventListener
-      // );
-
-      // window.addEventListener(
-      //   "updateTag",
-      //   handleSuscribeUpdateTag as EventListener
-      // );
-      // window.addEventListener(
-      //   "deleteTag",
-      //   handleSuscribeDeleteTag as EventListener
-      // );
     };
   }, []);
 
