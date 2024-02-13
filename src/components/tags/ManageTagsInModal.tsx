@@ -144,6 +144,11 @@ const ManageTagsInModal = <RecordType extends IRecord>({
       input.current.focus();
     }
   };
+  const handleBlur = () => {
+    setTimeout(() => {
+      input.current?.focus();
+    }, 0);
+  };
 
   const dispatchTagsEvent = (type: string, data: any) => {
     const event = new CustomEvent(type, {
@@ -354,7 +359,7 @@ const ManageTagsInModal = <RecordType extends IRecord>({
   useEffect(() => {
     setTimeout(() => {
       focusInput();
-    }, 100);
+    }, 200);
 
     getTags();
     async function getTags() {
@@ -396,6 +401,54 @@ const ManageTagsInModal = <RecordType extends IRecord>({
       );
     };
   }, []);
+  useEffect(() => {
+    if (activeTag) {
+      const element = document.getElementById(activeTag._id);
+      if (element) {
+        const container = document.getElementById("wrapForListAndCreate");
+        if (container) {
+          scrollToMakeElementVisibleInContainer(container, element);
+        }
+      }
+    }
+
+    function isElementVisibleInContainer(
+      container: HTMLElement,
+      el: HTMLElement
+    ) {
+      const containerRect = container.getBoundingClientRect();
+      const elRect = el.getBoundingClientRect();
+
+      const isVisible =
+        elRect.top >= containerRect.top &&
+        elRect.left >= containerRect.left &&
+        elRect.bottom <= containerRect.bottom &&
+        elRect.right <= containerRect.right;
+
+      return isVisible;
+    }
+
+    function scrollToMakeElementVisibleInContainer(
+      container: HTMLElement,
+      el: HTMLElement
+    ) {
+      if (!isElementVisibleInContainer(container, el)) {
+        const elRect = el.getBoundingClientRect();
+        const containerRect = container.getBoundingClientRect();
+
+        // Вычисляем, как далеко элемент находится от верхней и левой границы контейнера
+        const scrollLeft = elRect.left - containerRect.left;
+        const scrollTop = elRect.top - containerRect.top;
+
+        // Прокручиваем контейнер, чтобы элемент оказался в видимой области
+        container.scrollBy({
+          top: scrollTop - container.clientHeight / 2, // Центрируем элемент по вертикали
+          left: scrollLeft - container.clientWidth / 2, // Центрируем элемент по горизонтали
+          behavior: "smooth",
+        });
+      }
+    }
+  }, [activeTag]);
   const filterList = (el: ITag) => {
     //console.log(el);
     const regEx = new RegExp(search, "gi");
@@ -506,6 +559,7 @@ const ManageTagsInModal = <RecordType extends IRecord>({
             ))}
             <Box className={styles.input_wrap}>
               <input
+                onBlur={handleBlur}
                 disabled={loading}
                 ref={input}
                 className={styles.input_style}
