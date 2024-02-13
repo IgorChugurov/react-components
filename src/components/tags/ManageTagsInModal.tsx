@@ -56,6 +56,7 @@ const ManageTagsInModal = <RecordType extends IRecord>({
     left: rect.left,
   });
 
+  const [activeTag, setActiveTag] = useState<ITag | null>(null);
   const [serverTags, setServerTags] = useState<ITag[]>([]);
   const [filteredTags, setFilteredTags] = useState<ITag[]>([]);
 
@@ -66,53 +67,84 @@ const ManageTagsInModal = <RecordType extends IRecord>({
   const [bgcolor, setBgcolor] = useState<null | string>(null);
 
   const childrenRef = useRef<HTMLDivElement>(null);
-  const [lastActiveChild, setLastActiveChild] = useState<HTMLElement | null>(
-    null
-  );
+  // const [lastActiveChild, setLastActiveChild] = useState<HTMLElement | null>(
+  //   null
+  // );
 
   const [openModalOneTag, setOpenModalOneTag] = useState(true);
   const [currentTag, setCurrentTag] = useState<ITag | null>(null);
 
-  // rule of hover
-  const handleMouseOver = (event: React.MouseEvent<HTMLElement>) => {
-    event.stopPropagation();
+  // const handleMouseOver = (event: React.MouseEvent<HTMLElement>) => {
+  //   event.stopPropagation();
+  //   if (event.target) {
+  //     const element = event.target as HTMLElement;
+  //     if (element) {
+  //       setLastActiveChild(element.parentElement);
+  //     }
+  //   }
+  // };
+
+  // const handleMouseLeave = () => {
+  //   if (childrenRef.current) {
+  //     const children = Array.from(
+  //       childrenRef.current.children
+  //     ) as HTMLDivElement[];
+
+  //     children.forEach((child) => {
+  //       if (child.firstChild) {
+  //         const firstChild = child.firstChild as HTMLElement;
+  //         firstChild.style.backgroundColor = "";
+  //         if (firstChild === lastActiveChild) {
+  //           firstChild.style.backgroundColor = "rgba(55, 53, 47, 0.08)";
+  //         }
+  //       }
+  //     });
+  //   }
+  // };
+  // const handleMouseEnter = () => {
+  //   if (lastActiveChild) {
+  //     lastActiveChild.style.backgroundColor = "";
+  //   }
+  //   setMouseWasInContainer(true);
+  // };
+  const handleMouseEnterNew = (event: React.MouseEvent<HTMLElement>) => {
     if (event.target) {
-      const element = event.target as HTMLElement;
-      if (element) {
-        setLastActiveChild(element.parentElement);
+      const element = event.currentTarget as HTMLElement;
+      if (element && element.id) {
+        const tag = serverTags.find((t) => t._id === element.id);
+        //console.log(element);
+        if (tag) {
+          setActiveTag(tag);
+        }
       }
     }
   };
-
-  const handleMouseLeave = () => {
-    if (childrenRef.current) {
-      const children = Array.from(
-        childrenRef.current.children
-      ) as HTMLDivElement[];
-
-      children.forEach((child) => {
-        if (child.firstChild) {
-          const firstChild = child.firstChild as HTMLElement;
-          firstChild.style.backgroundColor = "";
-          if (firstChild === lastActiveChild) {
-            firstChild.style.backgroundColor = "rgba(55, 53, 47, 0.08)"; // Цвет при сохраненном активном элементе
-          }
-        }
-      });
+  const handleMouseEnterNewTag = (event: React.MouseEvent<HTMLElement>) => {
+    if (event.target) {
+      const element = event.currentTarget as HTMLElement;
+      if (element && element.id === "newTagName") {
+        setActiveTag({
+          _id: "newTagName",
+          name: "newTagName",
+          color: "newColor",
+        });
+      }
     }
-  };
-  const handleMouseEnter = () => {
-    if (lastActiveChild) {
-      lastActiveChild.style.backgroundColor = "";
-    }
-    setMouseWasInContainer(true);
   };
   // end rule of hover
   const handleInput = (event: ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
-    setMouseWasInContainer(false);
+    //setMouseWasInContainer(false);
   };
   //console.log(search);
+
+  const focusInput = () => {
+    if (input.current) {
+      //console.log(input.current);
+      input.current.focus();
+    }
+  };
+
   const dispatchTagsEvent = (type: string, data: any) => {
     const event = new CustomEvent(type, {
       detail: data,
@@ -134,11 +166,11 @@ const ManageTagsInModal = <RecordType extends IRecord>({
         color: bgcolor || "",
         _id: "newTag",
       };
-      items.push(newTag);
-      setItems([...items]);
+
+      setItems([...items, newTag]);
       setServerTags([...serverTags, newTag]);
       try {
-        const res = await dataService.createOneTag(newTag);
+        const res = await dataService.createOneTag({ ...newTag });
         // only for examples json-server
         if (res && !res._id) {
           res._id = res.id || "";
@@ -158,6 +190,10 @@ const ManageTagsInModal = <RecordType extends IRecord>({
         setServerTags((prev) => prev.filter((t) => t._id !== "newTag"));
       } finally {
         setLoading(false);
+        setTimeout(() => {
+          focusInput();
+        }, 200);
+
         //handleSuscribeReloadTagsList();
       }
     } else {
@@ -166,7 +202,89 @@ const ManageTagsInModal = <RecordType extends IRecord>({
   };
   const enterKeyPress = async (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      createTag();
+      if (activeTag && activeTag._id !== "newTagName") {
+        addTagInRecord(activeTag);
+      } else {
+        setActiveTag(null);
+        createTag();
+      }
+    } else if (e.key === "ArrowUp") {
+      if (filteredTags.length) {
+        if (!activeTag) {
+          setActiveTag(filteredTags[filteredTags.length - 1]);
+        } else {
+          if (search) {
+            if (activeTag._id === "newTagName") {
+              setActiveTag(filteredTags[filteredTags.length - 1]);
+            } else {
+              const index = filteredTags.findIndex(
+                (tag) => tag._id === activeTag._id
+              );
+              if (index !== 0) {
+                setActiveTag(filteredTags[index - 1]);
+              } else {
+                setActiveTag({
+                  _id: "newTagName",
+                  name: "newTagName",
+                  color: "newColor",
+                });
+              }
+            }
+          } else {
+            const index = filteredTags.findIndex(
+              (tag) => tag._id === activeTag._id
+            );
+            if (index !== 0) {
+              setActiveTag(filteredTags[index - 1]);
+            } else {
+              setActiveTag(filteredTags[filteredTags.length - 1]);
+            }
+          }
+        }
+      }
+    } else if (e.key === "ArrowDown") {
+      if (filteredTags.length) {
+        if (!activeTag) {
+          setActiveTag(filteredTags[0]);
+        } else {
+          if (search) {
+            if (activeTag._id === "newTagName") {
+              setActiveTag(filteredTags[0]);
+            } else {
+              const index = filteredTags.findIndex(
+                (tag) => tag._id === activeTag._id
+              );
+              if (index !== filteredTags.length - 1) {
+                setActiveTag(filteredTags[index + 1]);
+              } else {
+                setActiveTag({
+                  _id: "newTagName",
+                  name: "newTagName",
+                  color: "newColor",
+                });
+              }
+            }
+          } else {
+            const index = filteredTags.findIndex(
+              (tag) => tag._id === activeTag._id
+            );
+            if (index !== filteredTags.length - 1) {
+              setActiveTag(filteredTags[index + 1]);
+            } else {
+              setActiveTag(filteredTags[0]);
+            }
+          }
+
+          // const index = filteredTags.findIndex(
+          //   (tag) => tag._id === activeTag._id
+          // );
+          // if (index < filteredTags.length - 1) {
+          //   setActiveTag(filteredTags[index + 1]);
+          // } else {
+          //   setActiveTag(filteredTags[0]);
+          // }
+        }
+      }
     }
   };
   const deleteTagInRecord = async (tag: ITag, i: number) => {
@@ -181,7 +299,7 @@ const ManageTagsInModal = <RecordType extends IRecord>({
       tagId: tag._id,
     });
   };
-  console.log(items);
+
   const addTagInRecord = async (tag: ITag, newTag?: boolean) => {
     if (input.current) {
       input.current.value = "";
@@ -202,6 +320,9 @@ const ManageTagsInModal = <RecordType extends IRecord>({
         tagId: tag._id,
       });
     }
+    setTimeout(() => {
+      setActiveTag(tag), focusInput();
+    }, 200);
   };
 
   const closeOneTagModal = () => {
@@ -231,6 +352,10 @@ const ManageTagsInModal = <RecordType extends IRecord>({
   };
 
   useEffect(() => {
+    setTimeout(() => {
+      focusInput();
+    }, 100);
+
     getTags();
     async function getTags() {
       try {
@@ -278,7 +403,30 @@ const ManageTagsInModal = <RecordType extends IRecord>({
   };
   useEffect(() => {
     //console.log(serverTags);
-    setFilteredTags(serverTags.filter(filterList));
+    const filteredList = serverTags.filter(filterList);
+    setFilteredTags(filteredList);
+    if (filteredList.length > 0) {
+      if (!activeTag) {
+        setActiveTag(filteredList[0]);
+      }
+
+      if (search) {
+        const tag = filteredList.find((t) => t.name == search);
+        if (tag) {
+          setActiveTag(tag);
+        }
+      } else {
+        setActiveTag(filteredList[0]);
+      }
+    } else if (filteredList.length === 0 && search !== "") {
+      setActiveTag({
+        _id: "newTagName",
+        name: "newTagName",
+        color: "newColor",
+      });
+    } else {
+      setActiveTag(null);
+    }
     if (search && !bgcolor) {
       setBgcolor(bgColors[Math.floor(Math.random() * bgColors.length)]);
     } else if (!search) {
@@ -339,9 +487,7 @@ const ManageTagsInModal = <RecordType extends IRecord>({
                 key={tag._id}
               >
                 <Box className={styles.wrap_text_in_tag}>
-                  <Typography className={styles.text_in_tag}>
-                    {tag.name}
-                  </Typography>
+                  <span className={styles.text_in_tag}>{tag.name}</span>
                 </Box>
                 <Box
                   role="button"
@@ -392,23 +538,24 @@ const ManageTagsInModal = <RecordType extends IRecord>({
               <Box
                 className={styles.reatewrap1}
                 ref={childrenRef}
-                onMouseLeave={handleMouseLeave}
-                onMouseEnter={handleMouseEnter}
+                //onMouseLeave={handleMouseLeave}
+                //onMouseEnter={handleMouseEnter}
               >
-                {filteredTags.map((t, i) => (
+                {filteredTags.map((t) => (
                   <Box
                     className={[styles.createwrap20, "child"].join(" ")}
                     key={t._id || t.id}
                   >
                     <Box
-                      className={[styles.createwrap21, "chirstChild"].join(" ")}
-                      onMouseOver={handleMouseOver}
-                      sx={{
-                        background:
-                          i === 0 && search && !mouseWasInContainer
-                            ? "rgba(55, 53, 47, 0.08)"
-                            : "undefined",
-                      }}
+                      id={t._id || t.id}
+                      className={[
+                        styles.createwrap21,
+                        "chirstChild",
+                        activeTag && activeTag._id === t._id
+                          ? styles.activeTag
+                          : "",
+                      ].join(" ")}
+                      onMouseEnter={handleMouseEnterNew}
                     >
                       <Box className={styles.createwrap22}>
                         <Box className={styles.existtaginlistblock1}>
@@ -463,15 +610,23 @@ const ManageTagsInModal = <RecordType extends IRecord>({
                 {search && !serverTags.find((t) => t.name === search) && (
                   <Box
                     className={styles.createwrap2}
-                    onMouseOver={handleMouseOver}
+                    //onMouseOver={handleMouseOver}
                   >
                     <Box
-                      className={styles.createwrap3}
-                      sx={{
-                        background: filteredTags.length
-                          ? "undefined"
-                          : "rgba(55, 53, 47, 0.08)",
-                      }}
+                      id="newTagName"
+                      className={[
+                        styles.createwrap3,
+
+                        activeTag && activeTag._id === "newTagName"
+                          ? styles.activeTag
+                          : "",
+                      ].join(" ")}
+                      onMouseEnter={handleMouseEnterNewTag}
+                      // sx={{
+                      //   background: filteredTags.length
+                      //     ? "undefined"
+                      //     : "rgba(55, 53, 47, 0.08)",
+                      // }}
                     >
                       <Box className={styles.createwrap4}>
                         <Box className={styles.createwrap5}>

@@ -5,63 +5,34 @@
       "name": "json-server",
       "tags": [
         {
-          "id": "972e",
-          "name": "fdd",
-          "color": "rgb(253, 236, 200)",
-          "_id": "972e"
+          "id": "f9c0",
+          "name": "dddf",
+          "color": "rgb(238, 224, 218)",
+          "_id": "f9c0"
+        },
+        {
+          "id": "0f30",
+          "name": "l;sdsf",
+          "color": "rgb(238, 224, 218)",
+          "_id": "0f30"
+        },
+        {
+          "id": "4a52",
+          "name": "tag",
+          "color": "rgb(227, 226, 224)",
+          "_id": "4a52"
+        },
+        {
+          "id": "77d2",
+          "name": "f",
+          "color": "rgb(219, 237, 219)",
+          "_id": "77d2"
         }
       ],
       "id": "1006"
     }
   ],
   "tags": [
-    {
-      "id": "a2fc",
-      "name": "nedd",
-      "color": "rgb(253, 236, 200)",
-      "_id": "a2fc"
-    },
-    {
-      "id": "a96a",
-      "name": "nrr",
-      "color": "rgb(232, 222, 238)",
-      "_id": "a96a"
-    },
-    {
-      "id": "a436",
-      "fileRecordId": "1006",
-      "name": "ddd11",
-      "color": "rgb(219, 237, 219)",
-      "_id": "a436"
-    },
-    {
-      "_id": "4493",
-      "color": "rgb(227, 226, 224)",
-      "name": "tag2",
-      "id": "4493"
-    },
-    {
-      "_id": "96af",
-      "color": "rgb(253, 236, 200)",
-      "name": "test query",
-      "id": "96af"
-    },
-    {
-      "_id": "0f7d",
-      "name": "new",
-      "color": "rgb(219, 237, 219)",
-      "createdAt": "2023-12-05T12:26:12.024Z",
-      "updatedAt": "2023-12-05T12:26:12.024Z",
-      "id": "0f7d"
-    },
-    {
-      "_id": "f4eb",
-      "name": "tag4",
-      "color": "rgb(238, 224, 218)",
-      "createdAt": "2023-12-05T12:13:45.796Z",
-      "updatedAt": "2023-12-05T12:13:45.796Z",
-      "id": "f4eb"
-    },
     {
       "_id": "e90a",
       "name": "tag3",
@@ -71,10 +42,34 @@
       "id": "e90a"
     },
     {
-      "id": "972e",
-      "name": "fdd",
-      "color": "rgb(253, 236, 200)",
-      "_id": "972e"
+      "id": "f9c0",
+      "name": "dddf",
+      "color": "rgb(238, 224, 218)",
+      "_id": "f9c0"
+    },
+    {
+      "id": "0f30",
+      "name": "l;sdsf",
+      "color": "rgb(238, 224, 218)",
+      "_id": "0f30"
+    },
+    {
+      "id": "6fe5",
+      "name": "sssxxd",
+      "color": "rgb(255, 226, 221)",
+      "_id": "6fe5"
+    },
+    {
+      "id": "4a52",
+      "name": "tag",
+      "color": "rgb(227, 226, 224)",
+      "_id": "4a52"
+    },
+    {
+      "id": "77d2",
+      "name": "f",
+      "color": "rgb(219, 237, 219)",
+      "_id": "77d2"
     }
   ],
   "profile": {

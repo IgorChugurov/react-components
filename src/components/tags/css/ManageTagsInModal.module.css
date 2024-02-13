@@ -6,7 +6,7 @@
   overflow: hidden auto;
   margin-right: 0;
   margin-bottom: 0;
-  max-height: 400px;
+  max-height: 300px;
 }
 
 .secondblockwrap {
@@ -54,8 +54,11 @@
   border-radius: 4px;
 }
 
-.createwrap21:hover {
-  background: rgba(55, 53, 47, 0.08);
+/* .createwrap21:hover {
+  background-color: rgba(55, 53, 47, 0.08);
+} */
+.createwrap21.activeTag {
+  background-color: rgba(55, 53, 47, 0.08);
 }
 
 .createwrap22 {
@@ -96,40 +99,37 @@
   margin-right: 6px;
   min-width: 0px;
   flex: 1 1 auto;
-}
-
-.wrap1taginlist {
-  display: inline-flex;
-  align-items: center;
-  flex-shrink: 1;
-  min-width: 0;
-  max-width: 100%;
-  height: 20px;
-  border-radius: 3px;
-  padding-left: 6px;
-  padding-right: 6px;
-  font-size: 14px;
-  line-height: 120%;
-  color: rgb(24, 51, 71);
-  margin: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.wrapwtaginlist {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: inline-flex;
-  align-items: center;
-  height: 20px;
-  line-height: 20px;
-}
-
-.spantagtext {
-  overflow: hidden;
-  text-overflow: ellipsis;
+  .wrap1taginlist {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 1;
+    min-width: 0;
+    max-width: 100%;
+    height: 20px;
+    border-radius: 3px;
+    padding-left: 6px;
+    padding-right: 6px;
+    font-size: 14px;
+    line-height: 120%;
+    color: rgb(24, 51, 71);
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    .wrapwtaginlist {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: inline-flex;
+      align-items: center;
+      height: 20px;
+      line-height: 20px;
+      .spantagtext {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
 }
 
 .existtaginlistblock3 {
@@ -180,8 +180,8 @@
   border-radius: 4px;
 }
 
-.createwrap3:hover {
-  background: rgba(55, 53, 47, 0.08);
+.createwrap3.activeTag {
+  background-color: rgba(55, 53, 47, 0.08);
 }
 .createwrap4 {
   display: flex;
@@ -250,9 +250,9 @@
 }
 
 /* **************************************************************** */
-.child:hover .chirstChild {
-  background: rgba(55, 53, 47, 0.08);
-}
+/* .child:hover .chirstChild {
+  background-color: rgba(55, 53, 47, 0.08);
+} */
 .modalWindowTagList {
   position: absolute;
   /* top: 50%;
@@ -264,8 +264,8 @@
   min-height: 100px;
   border: 0.5px solid #ddd; /* Пример, замените #ddd на ваш цвет */
   background-color: white;
-  box-shadow: rgba(15, 15, 15, 0.05) 0px 0px 0px 1px, rgba(15, 15, 15, 0.1) 0px 3px 6px,
-    rgba(15, 15, 15, 0.2) 0px 9px 24px;
+  box-shadow: rgba(15, 15, 15, 0.05) 0px 0px 0px 1px,
+    rgba(15, 15, 15, 0.1) 0px 3px 6px, rgba(15, 15, 15, 0.2) 0px 9px 24px;
 }
 
 .modalWindowTagList:focus-visible {
@@ -310,21 +310,20 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.wrap_text_in_tag {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: inline-flex;
-  align-items: center;
-  height: 20px;
-  line-height: 20px;
-  .text_in_tag {
+  .wrap_text_in_tag {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    height: 20px;
+    line-height: 20px;
+    .text_in_tag {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: 14px;
+    }
   }
 }
 
