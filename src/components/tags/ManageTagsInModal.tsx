@@ -144,14 +144,14 @@ const ManageTagsInModal = <RecordType extends IRecord>({
           res._id = res.id || "";
           await dataService.updagteOneTag(res);
         }
-        setItems((prev) =>
-          prev.map((item) => (item._id === "newTag" ? res : item))
-        );
-        dataService.getAllTags().then((res: any) => {
-          setServerTags(res);
+        // setItems((prev) =>
+        //   prev.map((item) => (item._id === "newTag" ? res : item))
+        // );
+        await dataService.getAllTags().then((tags: any) => {
+          setServerTags(tags);
         });
 
-        addTagInRecord(res);
+        addTagInRecord(res, true);
       } catch (error) {
         console.log(error);
         setItems((prev) => prev.filter((t) => t._id !== "newTag"));
@@ -181,14 +181,22 @@ const ManageTagsInModal = <RecordType extends IRecord>({
       tagId: tag._id,
     });
   };
-  const addTagInRecord = async (tag: ITag) => {
+  console.log(items);
+  const addTagInRecord = async (tag: ITag, newTag?: boolean) => {
     if (input.current) {
       input.current.value = "";
     }
     setSearch("");
-    if (!items.find((t) => t._id === tag._id)) {
-      items.push(tag);
-      setItems([...items]);
+    if (!newTag && !items.find((t) => t._id === tag._id)) {
+      setItems([...items, tag]);
+      dispatchTagsEvent("addTagInRecord", {
+        [recordModel]: record._id,
+        tagId: tag._id,
+      });
+    } else if (newTag) {
+      setItems((prev) =>
+        prev.map((item) => (item._id === "newTag" ? tag : item))
+      );
       dispatchTagsEvent("addTagInRecord", {
         [recordModel]: record._id,
         tagId: tag._id,
