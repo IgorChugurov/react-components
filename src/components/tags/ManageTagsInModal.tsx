@@ -154,12 +154,12 @@ const ManageTagsInModal = <RecordType extends IRecord>({
     }, 0);
   };
 
-  // const dispatchTagsEvent = (type: string, data: any) => {
-  //   const event = new CustomEvent(type, {
-  //     detail: data,
-  //   });
-  //   window.dispatchEvent(event);
-  // };
+  const dispatchTagsEvent = (type: string, data: any) => {
+    const event = new CustomEvent(type, {
+      detail: data,
+    });
+    window.dispatchEvent(event);
+  };
 
   const createTag = async () => {
     //console.log(search);
@@ -310,14 +310,14 @@ const ManageTagsInModal = <RecordType extends IRecord>({
           tagId: tag._id,
         });
       }
+      dispatchTagsEvent("deleteTagInRecord", {
+        [recordModel]: record._id,
+        tagId: tag._id,
+      });
     } catch (error) {
       console.log(error);
       setItems([...items.slice(0, i), rTag[0], ...items.slice(i)]);
     }
-    // dispatchTagsEvent("deleteTagInRecord", {
-    //   [recordModel]: record._id,
-    //   tagId: tag._id,
-    // });
   };
 
   const addTagInRecord = async (tag: ITag, newTag?: boolean) => {
@@ -337,6 +337,10 @@ const ManageTagsInModal = <RecordType extends IRecord>({
         insertTagInRecord({
           [recordModel]: record._id,
           tagId: tag._id,
+        });
+        dispatchTagsEvent("addTagInRecord", {
+          [recordModel]: record._id,
+          tag: tag,
         });
       }
     } catch (error) {
