@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import {
   IRecodrs,
   getRecodrs,
@@ -7,17 +7,7 @@ import {
 } from "../../../service/record";
 import { Box } from "@mui/material";
 import TagsList from "../../tags/TagsList";
-import {
-  getAllTags,
-  getOneTag,
-  tagsDataService,
-  updagteOneTag,
-} from "../../../service/tags";
-import { ITag } from "../../tags/model/tag";
-import {
-  outerHandlersAdd,
-  outerHandlersRemove,
-} from "../../tags/outerHandlers/outerHandlers";
+import { getOneTag, tagsDataService } from "../../../service/tags";
 
 const Posts = () => {
   const [items, setItems] = useState<IRecodrs[]>([]);
@@ -155,13 +145,11 @@ const Posts = () => {
         console.log(err);
       })
       .finally(() => {});
-    outerHandlersAdd({
-      handleSuscribeAddTagInRecord,
-      handleSuscribeDeleteTagInRecord,
+    // outerHandlersAdd({
+    //   handleSuscribeAddTagInRecord,
+    //   handleSuscribeDeleteTagInRecord,
 
-      // handleSuscribeUpdateTag,
-      // handleSuscribeDeleteTag,
-    });
+    // });
     window.addEventListener(
       "updateRecord",
       handleSuscribeUpdateRecord as EventListener
@@ -172,10 +160,10 @@ const Posts = () => {
     );
 
     return () => {
-      outerHandlersRemove({
-        handleSuscribeAddTagInRecord,
-        handleSuscribeDeleteTagInRecord,
-      });
+      // outerHandlersRemove({
+      //   handleSuscribeAddTagInRecord,
+      //   handleSuscribeDeleteTagInRecord,
+      // });
 
       window.removeEventListener(
         "updateRecord",
@@ -191,7 +179,12 @@ const Posts = () => {
   return (
     <div>
       {items.map((item: any) => (
-        <ItemWithTag item={item} key={item._id} />
+        <ItemWithTag
+          item={item}
+          key={item._id}
+          addTagRecord={addTagRecord}
+          deleteTagRecord={deleteTagRecord}
+        />
       ))}
     </div>
   );
@@ -199,7 +192,15 @@ const Posts = () => {
 
 export default Posts;
 
-const ItemWithTag = ({ item }: { item: any }) => {
+const ItemWithTag = ({
+  item,
+  addTagRecord,
+  deleteTagRecord,
+}: {
+  item: any;
+  addTagRecord: (d: any) => Promise<any>;
+  deleteTagRecord: (d: any) => Promise<any>;
+}) => {
   return (
     <Box
       sx={{
@@ -236,6 +237,8 @@ const ItemWithTag = ({ item }: { item: any }) => {
           dataService={tagsDataService}
           quantity={3}
           recordModel={"fileRecordId"}
+          insertTagInRecord={addTagRecord}
+          removeTagFromRecord={deleteTagRecord}
         />
       </Box>
     </Box>

@@ -14,12 +14,16 @@ const TagsList = <RecordType extends IRecord>({
   dataService,
   onlyView,
   recordModel,
+  insertTagInRecord,
+  removeTagFromRecord,
 }: {
   quantity?: number;
   record: RecordType;
   dataService: ITagsDataService;
   onlyView?: boolean;
   recordModel: string;
+  insertTagInRecord: (d: any) => Promise<void>;
+  removeTagFromRecord: (d: any) => Promise<void>;
 }) => {
   const [openModal, setOpenModal] = useState(false);
   const [items, setItems] = useState<ITag[]>([]);
@@ -126,6 +130,8 @@ const TagsList = <RecordType extends IRecord>({
           record={record}
           rect={rect}
           recordModel={recordModel}
+          insertTagInRecord={insertTagInRecord}
+          removeTagFromRecord={removeTagFromRecord}
         />
       )}
       <Box className={styles.wrap1} ref={wrapper}>
