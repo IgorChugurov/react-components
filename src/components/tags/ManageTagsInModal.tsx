@@ -34,8 +34,8 @@ interface IProps<RecordType> {
   record: RecordType;
   sx?: any;
   recordModel: string;
-  insertTagInRecord: (d: any) => Promise<void>;
-  removeTagFromRecord: (d: any) => Promise<void>;
+  insertTagInRecord: (d: any) => Promise<any>;
+  removeTagFromRecord: (d: any) => Promise<any>;
 }
 const ManageTagsInModal = <RecordType extends IRecord>({
   insertTagInRecord,

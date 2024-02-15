@@ -22,8 +22,8 @@ const TagsList = <RecordType extends IRecord>({
   dataService: ITagsDataService;
   onlyView?: boolean;
   recordModel: string;
-  insertTagInRecord: (d: any) => Promise<void>;
-  removeTagFromRecord: (d: any) => Promise<void>;
+  insertTagInRecord: (d: any) => Promise<any>;
+  removeTagFromRecord: (d: any) => Promise<any>;
 }) => {
   const [openModal, setOpenModal] = useState(false);
   const [items, setItems] = useState<ITag[]>([]);
