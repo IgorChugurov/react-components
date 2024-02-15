@@ -143,14 +143,16 @@ const ManageTagsInModal = <RecordType extends IRecord>({
   //console.log(search);
 
   const focusInput = () => {
-    if (input.current) {
+    if (input?.current) {
       //console.log(input.current);
-      input.current.focus();
+      input.current?.focus();
     }
   };
   const handleBlur = () => {
     setTimeout(() => {
-      input.current?.focus();
+      if (!openModalOneTag) {
+        input.current?.focus();
+      }
     }, 0);
   };
 
@@ -510,6 +512,11 @@ const ManageTagsInModal = <RecordType extends IRecord>({
     return () => {};
   }, [serverTags, search]);
 
+  useEffect(() => {
+    if (!openModalOneTag) {
+      focusInput();
+    }
+  }, [openModalOneTag]);
   useEffect(() => {
     setTimeout(() => {
       if (modalInner.current) {
