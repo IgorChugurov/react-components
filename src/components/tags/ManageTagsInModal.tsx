@@ -340,11 +340,11 @@ const ManageTagsInModal = <RecordType extends IRecord>({
           [recordModel]: record._id,
           tagId: tag._id,
         });
-        dispatchTagsEvent("addTagInRecord", {
-          [recordModel]: record._id,
-          tag: tag,
-        });
       }
+      dispatchTagsEvent("addTagInRecord", {
+        [recordModel]: record._id,
+        tag: tag,
+      });
     } catch (error) {
       console.log(error);
       setItems([...items.filter((item) => item._id !== tag._id)]);
