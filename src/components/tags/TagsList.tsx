@@ -16,12 +16,14 @@ const TagsList = <RecordType extends IRecord>({
   recordModel,
   insertTagInRecord,
   removeTagFromRecord,
+  EmptyIcon,
 }: {
   quantity?: number;
   record: RecordType;
   dataService: ITagsDataService;
   onlyView?: boolean;
   recordModel: string;
+  EmptyIcon?: React.ElementType;
   insertTagInRecord: (d: any) => Promise<any>;
   removeTagFromRecord: (d: any) => Promise<any>;
 }) => {
@@ -162,7 +164,7 @@ const TagsList = <RecordType extends IRecord>({
                   </Box>
                 ))
               ) : (
-                <>Click here to manage tags</>
+                <> {!EmptyIcon ? "Click here to manage tags" : <EmptyIcon />}</>
               )}
               {remainingItemCount !== 0 && (
                 <Box className={styles.remainigItemsCount}>

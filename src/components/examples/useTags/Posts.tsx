@@ -233,6 +233,7 @@ const ItemWithTag = ({
         }}
       >
         <TagsList<any>
+          EmptyIcon={EmptyIcon}
           record={item}
           dataService={tagsDataService}
           quantity={3}
@@ -244,3 +245,4 @@ const ItemWithTag = ({
     </Box>
   );
 };
+const EmptyIcon = () => <span>🚫</span>;
