@@ -1,0 +1,10 @@
+.emptyIconTagWrapper {
+  display: flex;
+  padding: 6px;
+  align-items: center;
+  border-radius: 6px;
+  border: 1px solid var(--Grey-200, #dcdcdc);
+}
+.emptyIconTagWrapper:hover {
+  border-color: var(--Grey-500);
+}
