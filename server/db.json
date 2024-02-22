@@ -3,7 +3,19 @@
     {
       "_id": "1006",
       "name": "json-server",
-      "tags": [],
+      "tags": [
+        {
+          "_id": "e90a",
+          "name": "tag3ddd",
+          "id": "e90a"
+        },
+        {
+          "id": "f9c0",
+          "name": "dddf",
+          "color": "rgb(238, 224, 218)",
+          "_id": "f9c0"
+        }
+      ],
       "id": "1006"
     }
   ],

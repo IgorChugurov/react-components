@@ -137,34 +137,39 @@ const TagsList = <RecordType extends IRecord>({
         />
       )}
       <Box className={styles.wrap1} ref={wrapper}>
-        <Box
-          sx={{
-            position: "absolute",
-            width: "100%",
-            height: "100%",
-            zIndex: 1,
-            cursor: !onlyView ? "pointer" : "auto",
-          }}
-          onClick={handleClick}
-        ></Box>
         <Box className={styles.wrap2}>
           <Box className={styles.wrap3}>
             <Box className={styles.wrap4}>
               {items.length > 0 ? (
-                items.map((item: ITag, index: number) => (
+                <>
                   <Box
-                    className={styles.tagWrap1}
-                    key={item._id}
-                    sx={{ background: item.color }}
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <Box className={styles.tagWrap2} key={item._id}>
-                      <span className={styles.tagText}>{item.name}</span>
+                    sx={{
+                      position: "absolute",
+                      width: "100%",
+                      height: "100%",
+                      zIndex: 1,
+                      cursor: !onlyView ? "pointer" : "auto",
+                    }}
+                    onClick={handleClick}
+                  ></Box>
+
+                  {items.map((item: ITag, index: number) => (
+                    <Box
+                      className={styles.tagWrap1}
+                      key={item._id}
+                      sx={{ background: item.color }}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <Box className={styles.tagWrap2} key={item._id}>
+                        <span className={styles.tagText}>{item.name}</span>
+                      </Box>
                     </Box>
-                  </Box>
-                ))
+                  ))}
+                </>
               ) : (
-                <> {!EmptyIcon ? "Click here to manage tags" : <EmptyIcon />}</>
+                <Box onClick={handleClick}>
+                  {!EmptyIcon ? "Click here to manage tags" : <EmptyIcon />}
+                </Box>
               )}
               {remainingItemCount !== 0 && (
                 <Box className={styles.remainigItemsCount}>
