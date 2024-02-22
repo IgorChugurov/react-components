@@ -167,8 +167,12 @@ const TagsList = <RecordType extends IRecord>({
                   ))}
                 </>
               ) : (
-                <Box onClick={handleClick}>
-                  {!EmptyIcon ? "Click here to manage tags" : <EmptyIcon />}
+                <Box>
+                  {!EmptyIcon ? (
+                    "Click here to manage tags"
+                  ) : (
+                    <EmptyIcon onClick={handleClick} />
+                  )}
                 </Box>
               )}
               {remainingItemCount !== 0 && (
