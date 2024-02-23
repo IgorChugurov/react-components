@@ -327,6 +327,10 @@ const ManageTagsInModal = <RecordType extends IRecord>({
       input.current.value = "";
     }
     setSearch("");
+    console.log(
+      tag,
+      items.find((t) => t._id === tag._id)
+    );
     if (!newTag && !items.find((t) => t._id === tag._id)) {
       setItems([...items, tag]);
     } else if (newTag && items.find((t) => t._id === "newTag")) {
