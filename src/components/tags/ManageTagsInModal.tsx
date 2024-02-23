@@ -333,26 +333,42 @@ const ManageTagsInModal = <RecordType extends IRecord>({
     );
     if (!newTag && !items.find((t) => t._id === tag._id)) {
       setItems([...items, tag]);
+      try {
+        if (record._id) {
+          insertTagInRecord({
+            [recordModel]: record._id,
+            tagId: tag._id,
+          });
+        }
+        dispatchTagsEvent("addTagInRecord", {
+          [recordModel]: record._id,
+          tag: tag,
+        });
+      } catch (error) {
+        console.log(error);
+        setItems([...items.filter((item) => item._id !== tag._id)]);
+      }
     } else if (newTag && items.find((t) => t._id === "newTag")) {
       setItems((prev) =>
         prev.map((item) => (item._id === "newTag" ? tag : item))
       );
-    }
-    try {
-      if (record._id) {
-        insertTagInRecord({
+      try {
+        if (record._id) {
+          insertTagInRecord({
+            [recordModel]: record._id,
+            tagId: tag._id,
+          });
+        }
+        dispatchTagsEvent("addTagInRecord", {
           [recordModel]: record._id,
-          tagId: tag._id,
+          tag: tag,
         });
+      } catch (error) {
+        console.log(error);
+        setItems([...items.filter((item) => item._id !== tag._id)]);
       }
-      dispatchTagsEvent("addTagInRecord", {
-        [recordModel]: record._id,
-        tag: tag,
-      });
-    } catch (error) {
-      console.log(error);
-      setItems([...items.filter((item) => item._id !== tag._id)]);
     }
+
     setTimeout(() => {
       setActiveTag(tag), focusInput();
     }, 200);
