@@ -9,15 +9,23 @@ import { Box, SxProps, Theme } from "@mui/material";
 import TagsList from "../../tags/TagsList";
 import { getOneTag, tagsDataService } from "../../../service/tags";
 import styles from "./Post.module.css";
+import {
+  outerHandlersAdd,
+  outerHandlersRemove,
+} from "../../tags/outerHandlers/outerHandlers";
 
 const Posts = () => {
   const [items, setItems] = useState<IRecodrs[]>([]);
   const [loading, setLoading] = useState(true);
 
   const addTagRecord = async (data: any) => {
+    console.log(data);
     const t: any = await getOneTag(data.tagId);
 
     const r: any = await getRecord(data.fileRecordId);
+    if (!r.tags) {
+      r.tags = [];
+    }
 
     if (t && r && !r.tags.some((tag: any) => tag._id === data.tagId)) {
       r.tags.push(t);
@@ -149,7 +157,6 @@ const Posts = () => {
     // outerHandlersAdd({
     //   handleSuscribeAddTagInRecord,
     //   handleSuscribeDeleteTagInRecord,
-
     // });
     window.addEventListener(
       "updateRecord",

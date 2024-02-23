@@ -322,48 +322,43 @@ const ManageTagsInModal = <RecordType extends IRecord>({
     }
   };
 
+  const [addingTag, setAddingTag] = useState(false);
+
   const addTagInRecord = async (tag: ITag, newTag?: boolean) => {
     if (input.current) {
       input.current.value = "";
     }
     setSearch("");
 
-    if (!newTag && !items.find((t) => t._id === tag._id)) {
+    if (addingTag || items.find((t) => t._id === tag._id)) {
+      return;
+    }
+    setAddingTag(true);
+
+    if (!newTag) {
       setItems([...items, tag]);
-      try {
-        if (record._id) {
-          insertTagInRecord({
-            [recordModel]: record._id,
-            tagId: tag._id,
-          });
-        }
-        dispatchTagsEvent("addTagInRecord", {
+    } else {
+      setItems((prev) => [
+        ...prev.filter((item) => item._id !== "newTag"),
+        tag,
+      ]);
+    }
+    try {
+      if (record._id) {
+        await insertTagInRecord({
           [recordModel]: record._id,
-          tag: tag,
+          tagId: tag._id,
         });
-      } catch (error) {
-        console.log(error);
-        setItems([...items.filter((item) => item._id !== tag._id)]);
       }
-    } else if (newTag && items.find((t) => t._id === "newTag")) {
-      setItems((prev) =>
-        prev.map((item) => (item._id === "newTag" ? tag : item))
-      );
-      try {
-        if (record._id) {
-          insertTagInRecord({
-            [recordModel]: record._id,
-            tagId: tag._id,
-          });
-        }
-        dispatchTagsEvent("addTagInRecord", {
-          [recordModel]: record._id,
-          tag: tag,
-        });
-      } catch (error) {
-        console.log(error);
-        setItems([...items.filter((item) => item._id !== tag._id)]);
-      }
+      dispatchTagsEvent("addTagInRecord", {
+        [recordModel]: record._id,
+        tag: tag,
+      });
+    } catch (error) {
+      console.log(error);
+      setItems([...items.filter((item) => item._id !== tag._id)]);
+    } finally {
+      setTimeout(() => setAddingTag(false));
     }
 
     setTimeout(() => {
