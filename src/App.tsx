@@ -51,6 +51,7 @@ function App() {
             setSelectedValue={setCategory}
             dataService={categoryService}
             placeholder="Select category"
+            container50={true}
           />
         </Box>
       </ThemeProvider>

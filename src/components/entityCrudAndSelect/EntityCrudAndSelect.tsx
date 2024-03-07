@@ -34,6 +34,7 @@ const EntityCrudAndSelect = <T extends IEntity>({
   filteredFieldKey,
   filteredFieldValue,
   helperText,
+  container50,
 
   errorText = "Please select",
 }: {
@@ -51,6 +52,7 @@ const EntityCrudAndSelect = <T extends IEntity>({
   filteredFieldValue?: string;
   helperText?: string;
   errorText?: string;
+  container50?: boolean;
 }) => {
   const [value, setValue] = useState(selectedValue || "none");
   const [loadingOptions, setLoadingOptions] = useState(true);
@@ -346,7 +348,7 @@ const EntityCrudAndSelect = <T extends IEntity>({
 
   return (
     <>
-      <Box className={styles.container}>
+      <Box className={container50 ? styles.container50 : styles.container}>
         <LabelBlock
           required={required}
           label={label}

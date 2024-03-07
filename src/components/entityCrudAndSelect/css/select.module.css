@@ -49,7 +49,8 @@
   }
 }
 
-:global(#root) .custom_select {
+.container .custom_select,
+.container50 .custom_select {
   border-color: var(--grey-200, #dcdcdc); /* Fallback color */
   background-color: var(--grey-white, #ffffff); /* Fallback color */
   cursor: text !important;
@@ -66,19 +67,23 @@
   width: 100%;
 }
 
-:global(#root) .custom_select::placeholder {
+.container .custom_select::placeholder,
+.container50 .custom_select::placeholder {
   color: var(--grey-600, #656565); /* Fallback color */
 }
 
-:global(#root) .custom_select:disabled {
+.container .custom_select:disabled,
+.container50 .custom_select:disabled {
   color: var(--grey-300, #bdbdbd); /* Fallback color */
 }
 
-:global(#root) .custom_select:not(:global(.disabled)):hover {
+.container .custom_select:not(:global(.disabled)):hover,
+.container50 .custom_select:not(:global(.disabled)):hover {
   border-color: var(--grey-black, #171717) !important;
 }
 
-:global(#root) .custom_select fieldset {
+.container .custom_select fieldset,
+.container50 .custom_select fieldset {
   border-width: 0px !important;
 }
 
