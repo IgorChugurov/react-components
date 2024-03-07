@@ -1,0 +1,59 @@
+.body_xs_regular {
+  font-size: 12px;
+  font-family: "Roboto Flex", sans-serif;
+  font-weight: 400;
+  line-height: 18px;
+}
+
+.body_xs_medium {
+  font-size: 12px;
+  font-family: "Roboto Flex", sans-serif;
+  font-weight: 500;
+  line-height: 18px;
+}
+
+.body_s_regular {
+  font-family: "Roboto Flex";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 21px;
+}
+
+.body_s_medium {
+  font-size: 14px;
+  font-family: "Roboto Flex", sans-serif;
+  font-weight: 500;
+  line-height: 21px;
+}
+
+.body_m_regular {
+  font-family: "Roboto Flex";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.body_m_medium {
+  font-size: 16px;
+  font-family: "Roboto Flex", sans-serif;
+  font-weight: 500;
+  letter-spacing: 0%;
+  line-height: 24px;
+}
+
+.body_m_bold {
+  font-size: 16px;
+  font-family: "Roboto Flex", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0%;
+  line-height: 24px;
+}
+.colorGreyBlack {
+  color: var(--grey-black, #171717);
+}
+.cursorPointer {
+  cursor: pointer;
+}

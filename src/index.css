@@ -1,4 +1,78 @@
 :root {
+  --grey-50: #f8f8f8;
+  --grey-100: #e8e8e8;
+  --grey-200: #dcdcdc;
+  --grey-300: #bdbdbd;
+  --grey-500: #7c7c7c;
+  --grey-600: #656565;
+  --grey-white: #ffffff;
+  --grey-black: #171717;
+  --system-error: #ff453a;
+  --primary-50: #eef7ff;
+  --primary-100: #d8edff;
+  --primary-500: #0768fd;
+  --primary-600: #0768fd;
+  --border-radius: 6px;
+}
+
+#root .body-xs-regular {
+  font-size: 12px;
+  font-family: "Roboto Flex", sans-serif;
+  font-weight: 400;
+  letter-spacing: 0%;
+  line-height: 18px;
+}
+
+#root .body-xs-medium {
+  font-size: 12px;
+  font-family: "Roboto Flex", sans-serif;
+  font-weight: 500;
+  letter-spacing: 0%;
+  line-height: 18px;
+}
+
+#root .body-s-regular {
+  font-family: "Roboto Flex";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 21px;
+}
+
+#root .body-s-medium {
+  font-size: 14px;
+  font-family: "Roboto Flex", sans-serif;
+  font-weight: 500;
+  letter-spacing: 0%;
+  line-height: 21px;
+}
+
+#root .body-m-regular {
+  font-family: "Roboto Flex";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+#root .body-m-medium {
+  font-size: 16px;
+  font-family: "Roboto Flex", sans-serif;
+  font-weight: 500;
+  letter-spacing: 0%;
+  line-height: 24px;
+}
+
+#root .body-m-bold {
+  font-size: 16px;
+  font-family: "Roboto Flex", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0%;
+  line-height: 24px;
+}
+
+:root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;

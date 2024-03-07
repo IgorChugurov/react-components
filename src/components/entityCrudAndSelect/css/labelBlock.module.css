@@ -1,0 +1,11 @@
+.label {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  align-self: stretch;
+  justify-content: space-between;
+}
+.labelBox {
+  display: flex;
+  align-items: center;
+}

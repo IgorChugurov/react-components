@@ -178,7 +178,6 @@ const TagsList = <RecordType extends IRecord>({
               {remainingItemCount !== 0 && (
                 <Box className={styles.remainigItemsCount}>
                   <Typography
-                    className="body-xs-regular"
                     sx={{
                       color: "#183347",
                       fontSize: "12px",
