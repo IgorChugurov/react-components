@@ -254,7 +254,6 @@ const EntityCrudAndSelect = <T extends IEntity>({
     return dataService.getAll().then((options) => {
       setTimeout(() => setLoadingOptions(false), 200);
       const emptyOption = { _id: "none", name: placeholder } as T;
-      console.log(options);
       setOptioinsWithEmpty([emptyOption, ...options]);
     });
   };
@@ -272,7 +271,7 @@ const EntityCrudAndSelect = <T extends IEntity>({
     });
   }, []);
   useEffect(() => {
-    if (submitted && value === "none") {
+    if (submitted && value === "none" && required) {
       setIsInvalid(true);
     } else {
       setIsInvalid(false);
@@ -292,8 +291,9 @@ const EntityCrudAndSelect = <T extends IEntity>({
   };
 
   const updateColors = () => {
+    //console.log(selectRef);
     const borderColor = isInvalid
-      ? "var(--system-error,#ff453a;)"
+      ? "var(--system-error,#ff453a)"
       : disabled
       ? "var(--grey-50,#f8f8f8)"
       : anchorEl
