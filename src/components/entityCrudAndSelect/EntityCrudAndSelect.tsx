@@ -325,6 +325,11 @@ const EntityCrudAndSelect = <T extends IEntity>({
       selectedOption?.style.setProperty("--option-color", optionColor);
     });
   }, [value]);
+  useEffect(() => {
+    if (filteredFieldValue) {
+      setValue("none");
+    }
+  }, [filteredFieldValue]);
 
   useEffect(() => {
     setActiveOption(
@@ -351,6 +356,7 @@ const EntityCrudAndSelect = <T extends IEntity>({
     // }
   }, [searchText]);
   useEffect(() => {
+    //initialization
     if (selectedValue && selectedValue !== value) {
       setValue(selectedValue);
     }
