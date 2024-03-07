@@ -61,7 +61,10 @@ const EntityCrudAndSelect = <T extends IEntity>({
   const selectRef = useRef(null);
 
   const [anchorEl, setAnchorEl] = useState(null);
-  const [optioinsWithEmpty, setOptioinsWithEmpty] = useState<T[]>([]);
+  const emptyOption = { _id: "none", name: placeholder } as T;
+  const [optioinsWithEmpty, setOptioinsWithEmpty] = useState<T[]>([
+    emptyOption,
+  ]);
 
   const [isInvalid, setIsInvalid] = useState(value === "none" && submitted);
   //console.log(isInvalid);
@@ -253,7 +256,7 @@ const EntityCrudAndSelect = <T extends IEntity>({
   const getOptions = async () => {
     return dataService.getAll().then((options) => {
       setTimeout(() => setLoadingOptions(false), 200);
-      const emptyOption = { _id: "none", name: placeholder } as T;
+
       setOptioinsWithEmpty([emptyOption, ...options]);
     });
   };
@@ -317,9 +320,10 @@ const EntityCrudAndSelect = <T extends IEntity>({
       setSelectedValue(value);
     }
 
-    const selectedOption = document.getElementById(`selectedOption${name}`);
-
-    selectedOption?.style.setProperty("--option-color", optionColor);
+    setTimeout(() => {
+      const selectedOption = document.getElementById(`selectedOption${name}`);
+      selectedOption?.style.setProperty("--option-color", optionColor);
+    });
   }, [value]);
 
   useEffect(() => {
@@ -365,196 +369,193 @@ const EntityCrudAndSelect = <T extends IEntity>({
           anchorEl={anchorEl}
         />
 
-        {loadingOptions ? (
-          <Box className={styles.loadingBox}>
-            <CircularProgress />
-          </Box>
-        ) : (
-          <Box className={styles.inputBox} sx={sx}>
-            {optioinsWithEmpty && optioinsWithEmpty.length > 0 && (
-              <Select
-                style={{ borderColor: "var(--border-color)" }}
-                ref={selectRef}
-                className={[
-                  styles.custom_select,
-                  disabled ? "disabled" : "",
-                ].join(" ")}
-                disabled={disabled}
-                value={value}
-                onChange={onChange}
-                onOpen={handleMenuOpen}
-                onClose={handleMenuClose}
-                MenuProps={{
-                  // Disables auto focus on MenuItems and allows TextField to be in focus
-                  autoFocus: false,
-                  anchorEl: anchorEl,
-                  open: Boolean(anchorEl),
-                  onClose: handleMenuClose,
-                  PaperProps: {
-                    className: styles.menuPaper,
-                    sx: {
-                      ...(displayAddNewOption ? { paddingBottom: 0 } : {}),
-                    },
-                    style: {
-                      marginTop: "-6px",
-                    },
-                  },
+        <Box className={styles.inputBox} sx={sx}>
+          <Select
+            style={{ borderColor: "var(--border-color)" }}
+            ref={selectRef}
+            className={[styles.custom_select, disabled ? "disabled" : ""].join(
+              " "
+            )}
+            disabled={disabled}
+            value={value}
+            onChange={onChange}
+            onOpen={handleMenuOpen}
+            onClose={handleMenuClose}
+            MenuProps={{
+              // Disables auto focus on MenuItems and allows TextField to be in focus
+              autoFocus: false,
+              anchorEl: anchorEl,
+              open: Boolean(anchorEl),
+              onClose: handleMenuClose,
+              PaperProps: {
+                className: styles.menuPaper,
+                sx: {
+                  ...(displayAddNewOption ? { paddingBottom: 0 } : {}),
+                },
+                style: {
+                  marginTop: "-6px",
+                },
+              },
+            }}
+            renderValue={(selValue) => {
+              const selectedOption = optioinsWithEmpty.find(
+                (option) => option._id === selValue
+              );
+              return (
+                <span
+                  id={`selectedOption${name}`}
+                  style={{ color: "var(--option-color)" }}
+                  className={styles_typography.body_s_regular}
+                >
+                  {selectedOption ? selectedOption.name : ""}
+                </span>
+              );
+            }}
+          >
+            <div
+              className={styles.searchOption}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <SearchOption<T>
+                loading={loading}
+                setSearchText={setSearchText}
+                searchText={searchText}
+                placeholder={`Add/Search ${name}`}
+                setCurrentOption={setCurrentOption}
+                setDeleteOption={setDeleteOption}
+                enterKeyPress={enterKeyPressInSearch}
+              />
+            </div>
+            {optioinsWithEmpty.filter(displayOrNotOption).length === 0 &&
+              searchText === "" && (
+                <div
+                  className={styles.wrapEmptyOption}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
+                >
+                  <span
+                    className={[
+                      styles.textForEmptyList,
+                      styles_typography.body_s_regular,
+                    ].join(" ")}
+                  >
+                    List is empty
+                  </span>
+                </div>
+              )}
+
+            {optioinsWithEmpty.map((r, i: number) => (
+              <MenuItem
+                key={r._id}
+                autoFocus={false}
+                value={r._id}
+                style={{
+                  display: displayOrNotOption(r) ? "flex" : "none",
+                  ...(activeOption && activeOption._id === r._id
+                    ? { backgroundColor: "var(--primary-50, #eef7ff)" }
+                    : {}),
                 }}
-                renderValue={(selValue) => {
-                  const selectedOption = optioinsWithEmpty.find(
-                    (option) => option._id === selValue
-                  );
-                  return (
+                className={
+                  currentOption && currentOption._id === r._id
+                    ? styles.menuItemEdit
+                    : styles.menuItem
+                }
+              >
+                {currentOption && currentOption._id === r._id ? (
+                  <EditCurrentOption<T>
+                    enterKeyPress={enterKeyPress}
+                    loading={loading}
+                    currentOption={currentOption}
+                    setCurrentOption={setCurrentOption}
+                    updateData={updateData}
+                    setEditableOption={setEditableOption}
+                    option={r}
+                  />
+                ) : (
+                  <>
                     <span
-                      id={`selectedOption${name}`}
-                      style={{ color: "var(--option-color)" }}
-                      className={styles_typography.body_s_regular}
+                      className={[
+                        styles.textInMenuItem,
+                        styles_typography.body_s_regular,
+                        deleteOption && deleteOption._id === r._id
+                          ? styles.strikethrough
+                          : "",
+                        //r._id === "" ? "colorGrey500" : "colorGreyBlack",
+                      ].join(" ")}
                     >
-                      {selectedOption ? selectedOption.name : ""}
+                      {r.name}
                     </span>
-                  );
+                    {deleteOption && deleteOption._id === r._id ? (
+                      <div className={styles.iconWrapper}>
+                        <Icon_Done_inSelect
+                          className={styles.iconConfirm}
+                          onClick={() => {
+                            deleteData();
+                          }}
+                        />
+                        <Icon_Cancel_inSelect
+                          className={styles.iconCancel}
+                          onClick={() => {
+                            if (loading) {
+                              return;
+                            }
+                            setDeleteOption(null);
+                          }}
+                        />
+                      </div>
+                    ) : (
+                      <div className={styles.iconWrapper}>
+                        <Icon_Edit_inSelect
+                          className={styles.iconStyleEditAndDelete}
+                          hoverColor="var(--Primary-500)"
+                          onClick={(e) => {
+                            setEditableOption(r);
+                          }}
+                        />
+                        <Icon_Delete_inSelect
+                          className={styles.iconStyleEditAndDelete}
+                          hoverColor="var(--Primary-500)"
+                          onClick={(e) => {
+                            setDeletableOption(r);
+                          }}
+                        />
+                      </div>
+                    )}
+                  </>
+                )}
+              </MenuItem>
+            ))}
+
+            {loadingOptions && (
+              <Box className={styles.loadingBox}>
+                <CircularProgress />
+              </Box>
+            )}
+            {displayAddNewOption && (
+              <div
+                className={styles.addNewOption}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  createNewOption();
                 }}
               >
-                <div
-                  className={styles.searchOption}
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <SearchOption<T>
-                    loading={loading}
-                    setSearchText={setSearchText}
-                    searchText={searchText}
-                    placeholder={`Add/Search ${name}`}
-                    setCurrentOption={setCurrentOption}
-                    setDeleteOption={setDeleteOption}
-                    enterKeyPress={enterKeyPressInSearch}
-                  />
-                </div>
-                {optioinsWithEmpty.filter(displayOrNotOption).length === 0 &&
-                  searchText === "" && (
-                    <div
-                      className={styles.wrapEmptyOption}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                      }}
-                    >
-                      <span
-                        className={[
-                          styles.textForEmptyList,
-                          styles_typography.body_s_regular,
-                        ].join(" ")}
-                      >
-                        List is empty
-                      </span>
-                    </div>
-                  )}
-
-                {optioinsWithEmpty.map((r, i: number) => (
-                  <MenuItem
-                    key={r._id}
-                    autoFocus={false}
-                    value={r._id}
-                    style={{
-                      display: displayOrNotOption(r) ? "flex" : "none",
-                      ...(activeOption && activeOption._id === r._id
-                        ? { backgroundColor: "var(--primary-50, #eef7ff)" }
-                        : {}),
-                    }}
-                    className={
-                      currentOption && currentOption._id === r._id
-                        ? styles.menuItemEdit
-                        : styles.menuItem
-                    }
-                  >
-                    {currentOption && currentOption._id === r._id ? (
-                      <EditCurrentOption<T>
-                        enterKeyPress={enterKeyPress}
-                        loading={loading}
-                        currentOption={currentOption}
-                        setCurrentOption={setCurrentOption}
-                        updateData={updateData}
-                        setEditableOption={setEditableOption}
-                        option={r}
-                      />
-                    ) : (
-                      <>
-                        <span
-                          className={[
-                            styles.textInMenuItem,
-                            styles_typography.body_s_regular,
-                            deleteOption && deleteOption._id === r._id
-                              ? styles.strikethrough
-                              : "",
-                            //r._id === "" ? "colorGrey500" : "colorGreyBlack",
-                          ].join(" ")}
-                        >
-                          {r.name}
-                        </span>
-                        {deleteOption && deleteOption._id === r._id ? (
-                          <div className={styles.iconWrapper}>
-                            <Icon_Done_inSelect
-                              className={styles.iconConfirm}
-                              onClick={() => {
-                                deleteData();
-                              }}
-                            />
-                            <Icon_Cancel_inSelect
-                              className={styles.iconCancel}
-                              onClick={() => {
-                                if (loading) {
-                                  return;
-                                }
-                                setDeleteOption(null);
-                              }}
-                            />
-                          </div>
-                        ) : (
-                          <div className={styles.iconWrapper}>
-                            <Icon_Edit_inSelect
-                              className={styles.iconStyleEditAndDelete}
-                              hoverColor="var(--Primary-500)"
-                              onClick={(e) => {
-                                setEditableOption(r);
-                              }}
-                            />
-                            <Icon_Delete_inSelect
-                              className={styles.iconStyleEditAndDelete}
-                              hoverColor="var(--Primary-500)"
-                              onClick={(e) => {
-                                setDeletableOption(r);
-                              }}
-                            />
-                          </div>
-                        )}
-                      </>
-                    )}
-                  </MenuItem>
-                ))}
-                {displayAddNewOption && (
-                  <div
-                    className={styles.addNewOption}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      createNewOption();
-                    }}
-                  >
-                    <AddNewOption
-                      newOptionName={searchText}
-                      createNewOption={createNewOption}
-                    />
-                  </div>
-                )}
-              </Select>
+                <AddNewOption
+                  newOptionName={searchText}
+                  createNewOption={createNewOption}
+                />
+              </div>
             )}
+          </Select>
 
-            {helperText && !isInvalid && (
-              <span className={styles.helperText}>{helperText}</span>
-            )}
+          {helperText && !isInvalid && (
+            <span className={styles.helperText}>{helperText}</span>
+          )}
 
-            {isInvalid && required && (
-              <span className={styles.errorText}>{errorText}</span>
-            )}
-          </Box>
-        )}
+          {isInvalid && required && (
+            <span className={styles.errorText}>{errorText}</span>
+          )}
+        </Box>
       </Box>
     </>
   );

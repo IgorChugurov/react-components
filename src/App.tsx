@@ -6,7 +6,7 @@ import Posts from "./components/examples/useTags/Posts";
 import EntityCrudAndSelect from "./components/entityCrudAndSelect/EntityCrudAndSelect";
 import { categoryService } from "./service/apiService";
 import { fileTypeService } from "./service/apiService";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 
 function App() {
@@ -15,6 +15,9 @@ function App() {
   const [category, setCategory] = useState("");
   const [fileType, setFileType] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  useEffect(() => {
+    //console.log("app");
+  }, []);
 
   //console.log("category", JSON.stringify(category));
   return (
