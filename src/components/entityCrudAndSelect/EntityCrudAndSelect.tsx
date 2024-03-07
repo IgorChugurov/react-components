@@ -254,6 +254,7 @@ const EntityCrudAndSelect = <T extends IEntity>({
     return dataService.getAll().then((options) => {
       setTimeout(() => setLoadingOptions(false), 200);
       const emptyOption = { _id: "none", name: placeholder } as T;
+      console.log(options);
       setOptioinsWithEmpty([emptyOption, ...options]);
     });
   };
@@ -345,6 +346,11 @@ const EntityCrudAndSelect = <T extends IEntity>({
     //   setActiveOption(null);
     // }
   }, [searchText]);
+  useEffect(() => {
+    if (selectedValue && selectedValue !== value) {
+      setValue(selectedValue);
+    }
+  }, [selectedValue]);
 
   return (
     <>
