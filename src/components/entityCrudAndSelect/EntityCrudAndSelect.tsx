@@ -54,7 +54,7 @@ const EntityCrudAndSelect = <T extends IEntity>({
   errorText?: string;
   container50?: boolean;
 }) => {
-  const [value, setValue] = useState(selectedValue || "none");
+  const [value, setValue] = useState("none");
   const [loadingOptions, setLoadingOptions] = useState(true);
   const [searchText, setSearchText] = useState("");
 
@@ -97,11 +97,13 @@ const EntityCrudAndSelect = <T extends IEntity>({
 
   const clearValue = () => {
     setValue("none");
+    setSelectedValue("");
   };
 
   const onChange = (event: SelectChangeEvent<string>) => {
     const { target } = event;
     setValue(target.value);
+    setSelectedValue(target.value);
   };
 
   const displayAddNewOption = useMemo(
@@ -255,6 +257,7 @@ const EntityCrudAndSelect = <T extends IEntity>({
 
   const getOptions = async () => {
     return dataService.getAll().then((options) => {
+      //console.log(options);
       setTimeout(() => setLoadingOptions(false), 200);
 
       setOptioinsWithEmpty([emptyOption, ...options]);
@@ -312,14 +315,8 @@ const EntityCrudAndSelect = <T extends IEntity>({
     updateColors();
   }, [isInvalid, disabled, anchorEl]);
   useEffect(() => {
-    let optionColor = "var(--grey-black)";
-    if (value === "none") {
-      optionColor = "var(--grey-600)";
-      setSelectedValue("");
-    } else {
-      setSelectedValue(value);
-    }
-
+    let optionColor =
+      value === "none" ? "var(--grey-600)" : "var(--grey-black)";
     setTimeout(() => {
       const selectedOption = document.getElementById(`selectedOption${name}`);
       selectedOption?.style.setProperty("--option-color", optionColor);
@@ -357,10 +354,11 @@ const EntityCrudAndSelect = <T extends IEntity>({
   }, [searchText]);
   useEffect(() => {
     //initialization
-    if (selectedValue && selectedValue !== value) {
+    //console.log(loadingOptions, selectedValue, value);
+    if (!loadingOptions && selectedValue && selectedValue !== value) {
       setValue(selectedValue);
     }
-  }, [selectedValue]);
+  }, [selectedValue, loadingOptions]);
 
   return (
     <>

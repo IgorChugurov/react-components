@@ -11,9 +11,9 @@ import { Box } from "@mui/material";
 
 function App() {
   const theme = createTheme();
+  const [fileType, setFileType] = useState("1709733019183_entity");
+  const [category, setCategory] = useState("1709733035671_entity");
 
-  const [category, setCategory] = useState("");
-  const [fileType, setFileType] = useState("");
   const [submitted, setSubmitted] = useState(false);
   useEffect(() => {
     //console.log("app");
