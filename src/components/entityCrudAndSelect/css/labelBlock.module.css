@@ -8,4 +8,6 @@
 .labelBox {
   display: flex;
   align-items: center;
+  gap: 2px;
+  align-self: stretch;
 }
