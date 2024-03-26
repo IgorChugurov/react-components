@@ -61,7 +61,7 @@ const TagsList = forwardRef<HTMLDivElement, ITagsListProps>(
     const wrapper = useRef<HTMLInputElement>(null);
     const handleClick = (e: React.MouseEvent<HTMLElement>) => {
       e.stopPropagation(); // prevent
-      console.log(" click");
+      //console.log(" click");
       const div = e.target as HTMLElement;
       //console.log(window.scrollY);
 
