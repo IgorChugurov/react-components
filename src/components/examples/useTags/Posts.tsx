@@ -211,7 +211,6 @@ const ItemWithTag = ({
 }) => {
   // Create a ref to hold the DOM element
   const tagsListRef = useRef<HTMLDivElement>(null);
-
   // Function to handle the click on the Box and forward it to TagsList
   const handleBoxClick = (event: any) => {
     if (event.target === event.currentTarget && tagsListRef.current) {
@@ -254,7 +253,7 @@ const ItemWithTag = ({
         }}
       >
         <TagsList
-          ref={tagsListRef}
+          //ref={tagsListRef}
           EmptyIcon={EmptyIcon}
           record={item}
           dataService={tagsDataService}

@@ -197,11 +197,19 @@ const TagsList = forwardRef<HTMLDivElement, ITagsListProps>(
                   </>
                 ) : (
                   <Box>
-                    {!EmptyIcon ? (
-                      "Click here to manage tags"
-                    ) : (
-                      <EmptyIcon onClick={handleClick} />
-                    )}
+                    <Box
+                      ref={ref}
+                      sx={{
+                        position: "absolute",
+                        width: "100%",
+                        height: "100%",
+                        zIndex: 1,
+                        cursor: !onlyView ? "pointer" : "auto",
+                      }}
+                      onClick={handleClick}
+                    ></Box>
+
+                    {!EmptyIcon ? "Click here to manage tags" : <EmptyIcon />}
                   </Box>
                 )}
                 {remainingItemCount !== 0 && (
