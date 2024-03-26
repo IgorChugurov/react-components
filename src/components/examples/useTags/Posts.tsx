@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import {
   IRecodrs,
   getRecodrs,
@@ -209,8 +209,20 @@ const ItemWithTag = ({
   addTagRecord: (d: any) => Promise<any>;
   deleteTagRecord: (d: any) => Promise<any>;
 }) => {
+  // Create a ref to hold the DOM element
+  const tagsListRef = useRef<HTMLDivElement>(null);
+
+  // Function to handle the click on the Box and forward it to TagsList
+  const handleBoxClick = (event: any) => {
+    if (event.target === event.currentTarget && tagsListRef.current) {
+      // Directly call click on the DOM element
+      tagsListRef.current.click();
+    }
+  };
+
   return (
     <Box
+      onClick={handleBoxClick}
       sx={{
         m: 2,
         display: "flex",
@@ -235,12 +247,14 @@ const ItemWithTag = ({
       </Box>
       <Box
         sx={{
-          //height: "24px",
+          height: "100%",
           display: "flex",
           width: "100px",
+          backgroundColor: "red",
         }}
       >
-        <TagsList<any>
+        <TagsList
+          ref={tagsListRef}
           EmptyIcon={EmptyIcon}
           record={item}
           dataService={tagsDataService}
