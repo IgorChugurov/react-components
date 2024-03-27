@@ -10,6 +10,7 @@ interface IRecord {
 }
 
 interface ITagsListProps {
+  bgcolorForAddTags?: string;
   quantity?: number;
   record: IRecord;
   dataService: ITagsDataService;
@@ -31,6 +32,7 @@ const TagsList = forwardRef<HTMLDivElement, ITagsListProps>(
       insertTagInRecord,
       removeTagFromRecord,
       EmptyIcon,
+      bgcolorForAddTags,
     },
     ref
   ) => {
@@ -213,9 +215,16 @@ const TagsList = forwardRef<HTMLDivElement, ITagsListProps>(
                   </Box>
                 )}
                 {remainingItemCount !== 0 && (
-                  <Box className={styles.remainigItemsCount}>
-                    <Typography
-                      sx={{
+                  <Box
+                    className={styles.remainigItemsCount}
+                    style={{
+                      ...(bgcolorForAddTags
+                        ? { backgroundColor: bgcolorForAddTags }
+                        : {}),
+                    }}
+                  >
+                    <span
+                      style={{
                         color: "#183347",
                         fontSize: "12px",
                         fontWeight: 400,
@@ -224,7 +233,7 @@ const TagsList = forwardRef<HTMLDivElement, ITagsListProps>(
                       }}
                     >
                       +{remainingItemCount}
-                    </Typography>
+                    </span>
                   </Box>
                 )}
               </Box>

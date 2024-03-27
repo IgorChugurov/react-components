@@ -249,11 +249,12 @@ const ItemWithTag = ({
           height: "100%",
           display: "flex",
           width: "100px",
-          backgroundColor: "red",
+          //backgroundColor: "red",
         }}
       >
         <TagsList
           //ref={tagsListRef}
+          bgcolorForAddTags="red"
           EmptyIcon={EmptyIcon}
           record={item}
           dataService={tagsDataService}

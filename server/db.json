@@ -4,7 +4,32 @@
       "_id": "1006",
       "name": "json-server",
       "id": "1006",
-      "tags": []
+      "tags": [
+        {
+          "_id": "e90a",
+          "color": "rgb(253, 236, 200)",
+          "name": "dddf",
+          "id": "e90a"
+        },
+        {
+          "id": "f9c0",
+          "name": "dddf",
+          "color": "rgb(238, 224, 218)",
+          "_id": "f9c0"
+        },
+        {
+          "_id": "439c",
+          "name": "ddddd",
+          "color": "rgb(238, 224, 218)",
+          "id": "439c"
+        },
+        {
+          "id": "9682",
+          "name": "new",
+          "color": "rgb(232, 222, 238)",
+          "_id": "9682"
+        }
+      ]
     }
   ],
   "tags": [
