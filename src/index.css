@@ -17,22 +17,22 @@
 
 #root .body-xs-regular {
   font-size: 12px;
-  font-family: "Roboto", sans-serif;
+  font-family: "Roboto flex", sans-serif;
   font-weight: 400;
-  letter-spacing: 0%;
+  font-style: normal;
   line-height: 18px;
 }
 
 #root .body-xs-medium {
   font-size: 12px;
-  font-family: "Roboto", sans-serif;
+  font-family: "Roboto flex", sans-serif;
   font-weight: 500;
-  letter-spacing: 0%;
+  font-style: normal;
   line-height: 18px;
 }
 
 #root .body-s-regular {
-  font-family: "Roboto";
+  font-family: "Roboto flex";
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -40,15 +40,15 @@
 }
 
 #root .body-s-medium {
+  font-family: "Roboto flex", sans-serif;
   font-size: 14px;
-  font-family: "Roboto", sans-serif;
+  font-style: normal;
   font-weight: 500;
-  letter-spacing: 0%;
-  line-height: 21px;
+  line-height: 21px; /* 150% */
 }
 
 #root .body-m-regular {
-  font-family: "Roboto";
+  font-family: "Roboto flex", sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -57,7 +57,7 @@
 
 #root .body-m-medium {
   font-size: 16px;
-  font-family: "Roboto", sans-serif;
+  font-family: "Roboto flex", sans-serif;
   font-weight: 500;
   letter-spacing: 0%;
   line-height: 24px;
@@ -65,17 +65,18 @@
 
 #root .body-m-bold {
   font-size: 16px;
-  font-family: "Roboto", sans-serif;
-  font-style: normal;
+  font-family: "Roboto flex", sans-serif;
   font-weight: 700;
   letter-spacing: 0%;
   line-height: 24px;
 }
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
+  font-family: "Roboto flex", sans-serif;
+  font-size: 14px;
+  font-style: normal;
   font-weight: 400;
+  line-height: 21px;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
