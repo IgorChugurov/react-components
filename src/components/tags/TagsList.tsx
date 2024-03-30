@@ -11,6 +11,7 @@ interface IRecord {
 
 interface ITagsListProps {
   bgcolorForAddTags?: string;
+  classForCell?: string;
   quantity?: number;
   record: IRecord;
   dataService: ITagsDataService;
@@ -33,6 +34,7 @@ const TagsList = forwardRef<HTMLDivElement, ITagsListProps>(
       removeTagFromRecord,
       EmptyIcon,
       bgcolorForAddTags,
+      classForCell,
     },
     ref
   ) => {
@@ -192,7 +194,16 @@ const TagsList = forwardRef<HTMLDivElement, ITagsListProps>(
                         onClick={(e) => e.stopPropagation()}
                       >
                         <Box className={styles.tagWrap2} key={item._id}>
-                          <span className={styles.tagText}>{item.name}</span>
+                          <span
+                            className={
+                              classForCell ? classForCell : styles.tagText
+                            }
+                            style={{
+                              color: "#183347",
+                            }}
+                          >
+                            {item.name}
+                          </span>
                         </Box>
                       </Box>
                     ))}
@@ -224,12 +235,14 @@ const TagsList = forwardRef<HTMLDivElement, ITagsListProps>(
                     }}
                   >
                     <span
+                      className={`${
+                        classForCell ? classForCell : "body-xs-regular"
+                      }`}
                       style={{
                         color: "#183347",
-                        fontSize: "12px",
-                        fontWeight: 400,
-
-                        lineHeight: "18px",
+                        // fontSize: "12px",
+                        // fontWeight: 400,
+                        // lineHeight: "18px",
                       }}
                     >
                       +{remainingItemCount}
