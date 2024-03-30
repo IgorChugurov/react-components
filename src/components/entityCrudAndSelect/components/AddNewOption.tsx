@@ -4,8 +4,12 @@ import styles_typography from "../css/global_typography.module.css";
 
 const AddNewOption = ({
   newOptionName,
+  classForNewOptionText,
   createNewOption,
+  classForNewOptionItem,
 }: {
+  classForNewOptionText?: string;
+  classForNewOptionItem?: string;
   newOptionName: string;
   createNewOption: () => void;
 }) => {
@@ -21,7 +25,9 @@ const AddNewOption = ({
       <div className={styles.container}>
         <span
           className={[
-            styles_typography.body_s_regular,
+            classForNewOptionText
+              ? classForNewOptionText
+              : styles_typography.body_s_regular,
             styles_typography.colorGreyBlack,
             styles_typography.cursorPointer,
           ].join(" ")}
@@ -35,7 +41,9 @@ const AddNewOption = ({
         <span
           style={{ width: "100%" }}
           className={[
-            styles_typography.body_s_medium,
+            classForNewOptionItem
+              ? classForNewOptionText
+              : styles_typography.body_s_medium,
             styles_typography.colorGreyBlack,
           ].join(" ")}
           onClick={(e) => {

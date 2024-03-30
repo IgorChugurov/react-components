@@ -3,6 +3,7 @@ import { IconSearch_inSelect, Icon_clear_search } from "../icon/CustomIcon";
 import styles from "../css/searchOption.module.css";
 import styles_typography from "../css/global_typography.module.css";
 const SearchOption = <T,>({
+  classForSearchText,
   setSearchText,
   searchText,
   loading,
@@ -11,6 +12,7 @@ const SearchOption = <T,>({
   setDeleteOption,
   enterKeyPress,
 }: {
+  classForSearchText?: string;
   setCurrentOption: Dispatch<SetStateAction<T | null>>;
   setDeleteOption: Dispatch<SetStateAction<T | null>>;
   setSearchText: Dispatch<SetStateAction<string>>;
@@ -39,9 +41,12 @@ const SearchOption = <T,>({
       <IconSearch_inSelect className={styles.iconSearchInSelect} />
 
       <input
-        className={[styles.search_input, styles_typography.body_s_regular].join(
-          " "
-        )}
+        className={[
+          styles.search_input,
+          classForSearchText
+            ? classForSearchText
+            : styles_typography.body_m_regular,
+        ].join(" ")}
         value={searchText}
         disabled={loading}
         onFocus={() => handleFocus()}

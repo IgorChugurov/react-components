@@ -33,6 +33,8 @@ function App() {
 
         <Box sx={{ display: "flex", margin: "40px", width: "300px" }}>
           <EntityCrudAndSelect
+            classForSelectText=""
+            classForItemText="redcolor"
             label="File type"
             name="fileType"
             required={true}

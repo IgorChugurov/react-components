@@ -21,6 +21,11 @@ import SearchOption from "./components/SearchOption";
 import AddNewOption from "./components/AddNewOption";
 
 const EntityCrudAndSelect = <T extends IEntity>({
+  classForSelectText,
+  classForItemText,
+  classForSearchText,
+  classForNewOptionText,
+  classForNewOptionItem,
   dataService,
   placeholder,
   label,
@@ -38,6 +43,11 @@ const EntityCrudAndSelect = <T extends IEntity>({
 
   errorText = "Please select",
 }: {
+  classForSelectText?: string;
+  classForItemText?: string;
+  classForSearchText?: string;
+  classForNewOptionText?: string;
+  classForNewOptionItem?: string;
   dataService: IApiService<T>;
   placeholder: string;
   label: string;
@@ -409,7 +419,11 @@ const EntityCrudAndSelect = <T extends IEntity>({
                 <span
                   id={`selectedOption${name}`}
                   style={{ color: "var(--option-color)" }}
-                  className={styles_typography.body_s_regular}
+                  className={
+                    classForSelectText
+                      ? classForSelectText
+                      : styles_typography.body_s_regular
+                  }
                 >
                   {selectedOption ? selectedOption.name : ""}
                 </span>
@@ -421,6 +435,7 @@ const EntityCrudAndSelect = <T extends IEntity>({
               onClick={(e) => e.stopPropagation()}
             >
               <SearchOption<T>
+                classForSearchText={classForSearchText}
                 loading={loading}
                 setSearchText={setSearchText}
                 searchText={searchText}
@@ -441,7 +456,9 @@ const EntityCrudAndSelect = <T extends IEntity>({
                   <span
                     className={[
                       styles.textForEmptyList,
-                      styles_typography.body_s_regular,
+                      classForItemText
+                        ? classForItemText
+                        : styles_typography.body_s_regular,
                     ].join(" ")}
                   >
                     List is empty
@@ -481,7 +498,9 @@ const EntityCrudAndSelect = <T extends IEntity>({
                     <span
                       className={[
                         styles.textInMenuItem,
-                        styles_typography.body_s_regular,
+                        classForItemText
+                          ? classForItemText
+                          : styles_typography.body_s_regular,
                         deleteOption && deleteOption._id === r._id
                           ? styles.strikethrough
                           : "",
@@ -545,6 +564,8 @@ const EntityCrudAndSelect = <T extends IEntity>({
                 }}
               >
                 <AddNewOption
+                  classForNewOptionItem={classForNewOptionItem}
+                  classForNewOptionText={classForNewOptionText}
                   newOptionName={searchText}
                   createNewOption={createNewOption}
                 />
