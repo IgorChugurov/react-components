@@ -220,26 +220,40 @@ const EntityCrudAndSelect = <T extends IEntity>({
     if (!deleteOption || !deleteOption._id) {
       return;
     }
-    const index = optioinsWithEmpty.findIndex(
-      (opt) => opt._id === deleteOption._id
-    );
+    // const index = optioinsWithEmpty.findIndex(
+    //   (opt) => opt._id === deleteOption._id
+    // );
+    //const option = optioinsWithEmpty[index]
     try {
-      setOptioinsWithEmpty((prev) =>
-        prev.filter((option) => option._id !== deleteOption._id)
-      );
-      await dataService.deleteOne(deleteOption._id);
+      // setOptioinsWithEmpty((prev) => [
+      //   ...prev.slice(0, index),
+      //   ...prev.slice(index + 1),
+      // ]);
+      const res = await dataService.deleteOne(deleteOption._id);
+      console.log(res);
 
       //console.log(name, selectedValue, deleteOption._id);
       if (value === deleteOption._id) {
         setValue("none");
       }
+      const event = new CustomEvent("setSuccess", {
+        detail: "The option was deleted successfully",
+      });
+      window.dispatchEvent(event);
+      setOptioinsWithEmpty((prev) =>
+        prev.filter((option) => option._id !== deleteOption._id)
+      );
     } catch (err: any) {
       console.log(err);
-      setOptioinsWithEmpty([
-        ...optioinsWithEmpty.slice(0, index),
-        deleteOption,
-        ...optioinsWithEmpty.slice(index),
-      ]);
+      const event = new CustomEvent("setError", {
+        detail: err.message || "an error occurred",
+      });
+      window.dispatchEvent(event);
+      // setOptioinsWithEmpty([
+      //   ...optioinsWithEmpty.slice(0, index),
+      //   deleteOption,
+      //   ...optioinsWithEmpty.slice(index),
+      // ]);
     } finally {
       setLoading(false);
       setDeleteOption(null);
@@ -431,6 +445,11 @@ const EntityCrudAndSelect = <T extends IEntity>({
               );
             }}
           >
+            {loading && (
+              <div className={styles.loading}>
+                <div className={styles.reloadIcon}></div>
+              </div>
+            )}
             <div
               className={styles.searchOption}
               onClick={(e) => e.stopPropagation()}
