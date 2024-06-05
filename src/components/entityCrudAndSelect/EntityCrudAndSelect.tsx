@@ -176,16 +176,36 @@ const EntityCrudAndSelect = <T extends IEntity>({
 
       setValue(res._id);
       setSelectedValue(res._id);
+      let event = new CustomEvent("setSuccess", {
+        detail: "The option was created successfully",
+      });
+      window.dispatchEvent(event);
+      event = new CustomEvent(`created${name}`);
+      window.dispatchEvent(event);
     } catch (err: any) {
       setOptioinsWithEmpty((prev) =>
         prev.filter((opt) => opt._id !== "newOption")
       );
       console.log(err);
+      const event = new CustomEvent("setError", {
+        detail: err.message || "an error occurred",
+      });
+      window.dispatchEvent(event);
     } finally {
       setLoading(false);
       setDeleteOption(null);
       setCurrentOption(null);
       setSearchText("");
+      setTimeout(() => {
+        let event = new CustomEvent("setSuccess", {
+          detail: "",
+        });
+        window.dispatchEvent(event);
+        event = new CustomEvent("setError", {
+          detail: "",
+        });
+        window.dispatchEvent(event);
+      }, 5000);
     }
   };
 
@@ -204,12 +224,32 @@ const EntityCrudAndSelect = <T extends IEntity>({
           option._id === currentOption._id ? { ...res } : option
         )
       );
+      let event = new CustomEvent("setSuccess", {
+        detail: "The option was updated successfully",
+      });
+      window.dispatchEvent(event);
+      event = new CustomEvent(`updated${name}`);
+      window.dispatchEvent(event);
     } catch (err: any) {
       console.log(err);
+      const event = new CustomEvent("setError", {
+        detail: err.message || "an error occurred",
+      });
+      window.dispatchEvent(event);
     } finally {
       setLoading(false);
       setDeleteOption(null);
       setCurrentOption(null);
+      setTimeout(() => {
+        let event = new CustomEvent("setSuccess", {
+          detail: "",
+        });
+        window.dispatchEvent(event);
+        event = new CustomEvent("setError", {
+          detail: "",
+        });
+        window.dispatchEvent(event);
+      }, 5000);
     }
   };
   const deleteData = async () => {
@@ -236,9 +276,11 @@ const EntityCrudAndSelect = <T extends IEntity>({
       if (value === deleteOption._id) {
         setValue("none");
       }
-      const event = new CustomEvent("setSuccess", {
+      let event = new CustomEvent("setSuccess", {
         detail: "The option was deleted successfully",
       });
+      window.dispatchEvent(event);
+      event = new CustomEvent(`deleted${name}`);
       window.dispatchEvent(event);
       setOptioinsWithEmpty((prev) =>
         prev.filter((option) => option._id !== deleteOption._id)
@@ -258,6 +300,16 @@ const EntityCrudAndSelect = <T extends IEntity>({
       setLoading(false);
       setDeleteOption(null);
       setCurrentOption(null);
+      setTimeout(() => {
+        let event = new CustomEvent("setSuccess", {
+          detail: "",
+        });
+        window.dispatchEvent(event);
+        event = new CustomEvent("setError", {
+          detail: "",
+        });
+        window.dispatchEvent(event);
+      }, 5000);
     }
   };
 
