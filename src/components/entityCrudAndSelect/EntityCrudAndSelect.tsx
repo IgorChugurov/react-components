@@ -175,6 +175,7 @@ const EntityCrudAndSelect = <T extends IEntity>({
       );
 
       setValue(res._id);
+      setSelectedValue(res._id);
     } catch (err: any) {
       setOptioinsWithEmpty((prev) =>
         prev.filter((opt) => opt._id !== "newOption")
